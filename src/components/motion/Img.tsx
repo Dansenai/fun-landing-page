@@ -1,6 +1,6 @@
-import { useRef } from 'react'
 import { motion, useScroll, useTransform } from 'framer-motion'
 import { cn } from '@/lib/utils'
+import { useReveal } from './useReveal'
 
 type Props = {
   src: string
@@ -9,42 +9,29 @@ type Props = {
   bw?: boolean
   parallax?: boolean
   hover?: boolean
-  /** false = reveal on mount (above-the-fold); true = reveal when scrolled into view */
-  inView?: boolean
+  inView?: boolean // kept for API compatibility
   eager?: boolean
 }
 
-const EASE = [0.16, 1, 0.3, 1] as const
-
-/** Photo with a clip-path wipe reveal + optional scroll parallax. */
-export default function Img({
-  src, alt, className, bw = false, parallax = false, hover = true, inView = true, eager = false,
-}: Props) {
-  const ref = useRef<HTMLDivElement>(null)
+/** Photo with a clip-path wipe reveal (CSS) + optional scroll parallax (framer). Never stays hidden. */
+export default function Img({ src, alt, className, bw = false, parallax = false, hover = true }: Props) {
+  const { ref, shown } = useReveal<HTMLDivElement>()
   const { scrollYProgress } = useScroll({ target: ref, offset: ['start end', 'end start'] })
   const y = useTransform(scrollYProgress, [0, 1], ['-7%', '7%'])
 
   const treat = bw ? 'bw' : 'ph'
   const hov = hover ? (bw ? 'bw-hover' : 'ph-hover') : ''
-  const revealAnim = inView
-    ? { whileInView: { clipPath: 'inset(0 0 0% 0)' }, viewport: { once: true, margin: '0px 0px -10% 0px' } }
-    : { animate: { clipPath: 'inset(0 0 0% 0)' } }
 
   return (
-    <motion.div
-      ref={ref}
-      className={cn(treat, hov, className)}
-      initial={{ clipPath: 'inset(0 0 100% 0)' }}
-      {...revealAnim}
-      transition={{ duration: 1.1, ease: EASE }}
-    >
+    <div ref={ref} className={cn(treat, hov, 'rv-clip', shown && 'in', className)}>
       <motion.img
         src={src}
         alt={alt}
-        loading={eager ? 'eager' : 'lazy'}
+        loading="eager"
+        decoding="async"
         style={parallax ? { y } : undefined}
         className={parallax ? '!h-[118%] !-mt-[9%]' : undefined}
       />
-    </motion.div>
+    </div>
   )
 }

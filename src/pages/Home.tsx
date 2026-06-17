@@ -38,7 +38,7 @@ export default function Home() {
             <motion.p initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.7, delay: 0.7, ease: EASE }}
               className="mt-8 max-w-xl text-lg md:text-xl leading-relaxed text-stone text-pretty">
               For five decades, Radnik Exports has manufactured for the world's most demanding apparel brands and
-              defense forces — 1.25 million pieces a month, with full traceability from design to dispatch.
+              defense forces — over a million garments a month, with full traceability from design to dispatch.
             </motion.p>
             <motion.div initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.7, delay: 0.85, ease: EASE }}
               className="mt-10 flex flex-wrap items-center gap-4">
@@ -71,7 +71,7 @@ export default function Home() {
               <Reveal key={s.label} delay={i * 60}>
                 <div className="border-t border-ink/15 pt-5">
                   <div className="text-[clamp(1.5rem,2.3vw,1.95rem)] font-extrabold tracking-[-0.04em] leading-none text-red tabular-nums whitespace-nowrap">
-                    <CountUp value={s.value} prefix={s.prefix} suffix={s.suffix} decimals={s.value === 1.25 ? 2 : 0} group={s.label !== 'Founded'} />
+                    <CountUp value={s.value} prefix={s.prefix} suffix={s.suffix} decimals={0} group={s.label !== 'Founded'} />
                   </div>
                   <div className="mt-3 font-mono text-[11px] uppercase tracking-[0.14em] text-stone">{s.label}</div>
                 </div>

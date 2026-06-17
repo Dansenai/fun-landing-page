@@ -38,7 +38,7 @@ export const STATS = [
   { value: 15, suffix: '', label: 'Factories', prefix: '' },
   { value: 5000, suffix: '+', label: 'Machines', prefix: '' },
   { value: 10000, suffix: '', label: 'People', prefix: '~' },
-  { value: 1.25, suffix: 'M', label: 'Pieces / month', prefix: '' },
+  { value: 1, suffix: 'M+', label: 'Garments / month', prefix: '' },
   { value: 18, suffix: 'M', label: 'Pieces / year', prefix: '' },
 ]
 

@@ -15,7 +15,7 @@ const MISSION = [
 const MILESTONES = [
   { year: '1973', text: 'Radnik Exports incorporated — the beginning of a family-run business house in fashion.' },
   { year: '2007', text: 'Project RISE launched — skilling and empowering women across the workforce.' },
-  { year: '2010s', text: 'Adoption of 3D design platforms (CLO, Browzwear, Optitex) and WGSN trend intelligence.' },
+  { year: '2020–23', text: 'Environmental program scales — 12,600+ trees planted, two ponds restored, and 343 KW of solar installed.' },
   { year: 'Today', text: '15 factories · 5,000+ machines · ~10,000 people · 18M pieces a year for 40+ global brands.' },
 ]
 
@@ -82,14 +82,14 @@ export default function About() {
           <div className="grid lg:grid-cols-2 gap-10 lg:gap-20 items-center">
             <Reveal>
               <div>
-                <div className="eyebrow text-red mb-6">Leadership</div>
-                <blockquote className="d-2 text-ink text-balance">
-                  “We set aspirational targets in accordance with best-practice benchmarks, act to meet them, and
-                  report honestly on our progress.”
-                </blockquote>
+                <div className="eyebrow text-red mb-6">Leadership & values</div>
+                <p className="d-2 text-ink text-balance">
+                  We set aspirational targets to best-practice benchmarks, act to meet them, and report honestly on
+                  our progress.
+                </p>
                 <div className="mt-8">
-                  <div className="font-semibold text-ink">{COMPANY.cmd}</div>
-                  <div className="font-mono text-[11px] uppercase tracking-wide text-stone mt-1">Chairman & Managing Director, Radnik Exports</div>
+                  <div className="font-semibold text-ink">{COMPANY.cmd} · Chairman & Managing Director</div>
+                  <div className="font-mono text-[11px] uppercase tracking-wide text-stone mt-1">A family-run business house since 1973</div>
                 </div>
               </div>
             </Reveal>

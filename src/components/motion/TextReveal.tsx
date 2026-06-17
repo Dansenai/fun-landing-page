@@ -1,6 +1,6 @@
-import { motion } from 'framer-motion'
 import { Fragment, type ElementType } from 'react'
 import { cn } from '@/lib/utils'
+import { useReveal } from './useReveal'
 
 type Props = {
   text: string
@@ -8,43 +8,22 @@ type Props = {
   as?: ElementType
   delay?: number
   stagger?: number
+  inView?: boolean // kept for API compatibility (timing now handled automatically)
   once?: boolean
-  /** false = animate on mount (for above-the-fold); true = animate when scrolled into view */
-  inView?: boolean
 }
 
-const EASE = [0.16, 1, 0.3, 1] as const
-
 /** Word-by-word mask reveal — each word rises out of an overflow-hidden clip. */
-export default function TextReveal({
-  text,
-  className,
-  as: Tag = 'h2',
-  delay = 0,
-  stagger = 0.045,
-  once = true,
-  inView = true,
-}: Props) {
+export default function TextReveal({ text, className, as: Tag = 'h2', delay = 0, stagger = 0.045 }: Props) {
+  const { ref, shown } = useReveal<HTMLElement>()
   const words = text.split(' ')
-  const anim = inView
-    ? { whileInView: { y: 0 }, viewport: { once } }
-    : { animate: { y: 0 } }
   return (
-    <Tag className={cn('inline', className)} aria-label={text}>
+    <Tag ref={ref} className={cn('inline', className)} aria-label={text}>
       {words.map((w, i) => (
         <Fragment key={i}>
-          <span
-            aria-hidden
-            className="inline-block overflow-hidden align-bottom pb-[0.14em] -mb-[0.14em]"
-          >
-            <motion.span
-              className="inline-block"
-              initial={{ y: '115%' }}
-              {...anim}
-              transition={{ duration: 0.85, delay: delay + i * stagger, ease: EASE }}
-            >
+          <span aria-hidden className="inline-block overflow-hidden align-bottom pb-[0.14em] -mb-[0.14em]">
+            <span className={cn('rv-word', shown && 'in')} style={{ transitionDelay: `${delay + i * stagger}s` }}>
               {w}
-            </motion.span>
+            </span>
           </span>
           {i < words.length - 1 ? ' ' : ''}
         </Fragment>

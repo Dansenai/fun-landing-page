@@ -124,6 +124,20 @@
   .text-pretty { text-wrap: pretty; }
 }
 
+/* Reveal primitives — toggled by a JS-added .in class (see useReveal) */
+.rv-up { opacity: 0; transform: translateY(26px); transition: opacity 0.75s cubic-bezier(.16,1,.3,1), transform 0.75s cubic-bezier(.16,1,.3,1); will-change: opacity, transform; }
+.rv-up.in { opacity: 1 !important; transform: none !important; }
+
+.rv-word { display: inline-block; transform: translateY(115%); transition: transform 0.85s cubic-bezier(.16,1,.3,1); }
+.rv-word.in { transform: none !important; }
+
+.rv-clip { clip-path: inset(0 0 100% 0); transition: clip-path 1.1s cubic-bezier(.16,1,.3,1); }
+.rv-clip.in { clip-path: inset(0 0 0 0) !important; }
+
+@media (prefers-reduced-motion: reduce) {
+  .rv-up, .rv-word, .rv-clip { transition: none !important; opacity: 1 !important; transform: none !important; clip-path: none !important; }
+}
+
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after {
     animation-duration: 0.001ms !important;
