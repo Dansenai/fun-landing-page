@@ -22,6 +22,7 @@ export default {
         sans: ['AspektaVF', '-apple-system', 'BlinkMacSystemFont', 'Segoe UI', 'sans-serif'],
         display: ['AspektaVF', '-apple-system', 'BlinkMacSystemFont', 'sans-serif'],
         mono: ['"JetBrains Mono"', 'ui-monospace', 'SFMono-Regular', 'Menlo', 'monospace'],
+        brand: ['Caudex', 'Georgia', 'serif'], // Radnik's own wordmark/heading font
       },
       maxWidth: { edge: '1440px' },
       transitionTimingFunction: {
