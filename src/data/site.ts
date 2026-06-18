@@ -104,8 +104,8 @@ export const LAB_TESTS = [
 
 export const SOURCING = ['China', 'Hong Kong', 'Surat', 'Salem', 'Erode']
 
-export const ESG_PEOPLE = [
-  { name: 'Project RISE', since: '2007', body: '~10,000 women trained in garment skills, English, computing and financial literacy — with health, nutrition and hygiene awareness.' },
+export const ESG_PEOPLE: { name: string; since: string; body: string; full?: string }[] = [
+  { name: 'Project RISE', full: 'Radnik Initiative for Social Empowerment', since: '2007', body: '~10,000 women trained in garment skills, English, computing and financial literacy — with health, nutrition and hygiene awareness.' },
   { name: 'Project Bhagta Bharat', since: 'Corporate NGO', body: '~3,500 underprivileged children reached with life-skill education.' },
   { name: 'Project HER', since: 'with Swasti & Bestseller', body: 'Health and hygiene programs for our women workforce.' },
   { name: 'Project SWAR', since: 'Lindex-certified', body: 'Sustainability of Water & Resources — Radnik was the first supplier certified.' },

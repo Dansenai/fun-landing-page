@@ -44,6 +44,7 @@ export default function Sustainability() {
               <Reveal key={p.name} delay={(i % 3) * 70}>
                 <div className="bg-paper p-7 h-full hover:bg-sand transition-colors">
                   <h3 className="d-3 text-ink">{p.name}</h3>
+                  {p.full && <div className="mt-1.5 font-brand text-sm italic text-stone">{p.full}</div>}
                   <div className="mt-1 font-mono text-[11px] uppercase tracking-wide text-red">{p.since}</div>
                   <p className="mt-4 text-sm text-stone leading-relaxed">{p.body}</p>
                 </div>
