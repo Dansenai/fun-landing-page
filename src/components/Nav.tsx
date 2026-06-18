@@ -20,8 +20,15 @@ export default function Nav() {
 
   useEffect(() => setOpen(false), [pathname])
   useEffect(() => {
+    // Lenis ignores body overflow, so stop it explicitly while the menu is open;
+    // the overflow lock stays as a fallback for the reduced-motion / no-Lenis case.
+    if (open) window.__lenis?.stop()
+    else window.__lenis?.start()
     document.body.style.overflow = open ? 'hidden' : ''
-    return () => { document.body.style.overflow = '' }
+    return () => {
+      window.__lenis?.start()
+      document.body.style.overflow = ''
+    }
   }, [open])
 
   return (

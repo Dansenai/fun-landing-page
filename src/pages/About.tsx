@@ -34,7 +34,7 @@ export default function About() {
 
       {/* Heritage narrative */}
       <section className="bg-paper">
-        <div className="edge py-24 md:py-32">
+        <div className="edge py-16 md:py-32">
           <div className="grid lg:grid-cols-[1.2fr_1fr] gap-12 lg:gap-20 items-start">
             <div>
               <SectionHeading eyebrow="Our story" title="A house built on precision, not promises." size="d-1" />
@@ -61,9 +61,9 @@ export default function About() {
 
       {/* Mission (red) */}
       <section className="bg-red text-white">
-        <div className="edge py-24 md:py-28">
+        <div className="edge py-16 md:py-28">
           <SectionHeading eyebrow="Our mission" title="To be our customers' first choice." size="d-1" dark accent="white" />
-          <div className="mt-14 grid sm:grid-cols-2 lg:grid-cols-4 gap-x-8 gap-y-10">
+          <div className="mt-10 md:mt-14 grid sm:grid-cols-2 lg:grid-cols-4 gap-x-8 gap-y-10">
             {MISSION.map((m, i) => (
               <Reveal key={m.n} delay={i * 80}>
                 <div className="border-t border-white/30 pt-5">
@@ -78,7 +78,7 @@ export default function About() {
 
       {/* Leadership */}
       <section className="bg-paper">
-        <div className="edge py-24 md:py-28">
+        <div className="edge py-16 md:py-28">
           <div className="grid lg:grid-cols-2 gap-10 lg:gap-20 items-center">
             <Reveal>
               <div>
@@ -111,9 +111,9 @@ export default function About() {
 
       {/* Milestones (sand) */}
       <section className="bg-sand">
-        <div className="edge py-24 md:py-28">
+        <div className="edge py-16 md:py-28">
           <SectionHeading eyebrow="The timeline" title="Five decades, briefly." size="d-1" />
-          <div className="mt-14 grid md:grid-cols-2 lg:grid-cols-4 gap-x-8 gap-y-12">
+          <div className="mt-10 md:mt-14 grid md:grid-cols-2 lg:grid-cols-4 gap-x-8 gap-y-12">
             {MILESTONES.map((m, i) => (
               <Reveal key={m.year} delay={i * 90}>
                 <div className="border-t-2 border-red pt-5">

@@ -35,7 +35,7 @@ export default function Contact() {
   return (
     <>
       <section className="bg-paper">
-        <div className="edge pt-40 pb-14 md:pt-48 md:pb-16">
+        <div className="edge pt-28 pb-10 md:pt-48 md:pb-16">
           <Reveal><div className="eyebrow flex items-center gap-3 text-red"><span className="h-px w-8 bg-red" /> Contact & inquiry</div></Reveal>
           <TextReveal text="Start a sourcing conversation." as="h1" className="d-1 mt-6 max-w-3xl text-ink" delay={0.1} inView={false} />
           <Reveal delay={300}>
@@ -100,10 +100,10 @@ export default function Contact() {
               ))}
               <div className="hairline" />
               <div className="space-y-4">
-                <a href={`mailto:${COMPANY.email}`} className="flex items-center gap-3 text-ink hover:text-red transition-colors"><Mail className="h-4 w-4 text-red" /> {COMPANY.email}</a>
-                <a href={`tel:${COMPANY.phoneHref}`} className="flex items-center gap-3 text-ink hover:text-red transition-colors"><Phone className="h-4 w-4 text-red" /> {COMPANY.phone}</a>
-                <a href={`https://wa.me/${COMPANY.whatsapp}`} target="_blank" rel="noreferrer" className="flex items-center gap-3 text-ink hover:text-red transition-colors"><MessageCircle className="h-4 w-4 text-red" /> WhatsApp</a>
-                <a href={COMPANY.linkedin} target="_blank" rel="noreferrer" className="flex items-center gap-3 text-ink hover:text-red transition-colors"><LinkedinIcon className="h-4 w-4 text-red" /> LinkedIn</a>
+                <a href={`mailto:${COMPANY.email}`} className="flex items-center gap-3 py-2 -my-2 text-ink hover:text-red transition-colors"><Mail className="h-4 w-4 text-red" /> {COMPANY.email}</a>
+                <a href={`tel:${COMPANY.phoneHref}`} className="flex items-center gap-3 py-2 -my-2 text-ink hover:text-red transition-colors"><Phone className="h-4 w-4 text-red" /> {COMPANY.phone}</a>
+                <a href={`https://wa.me/${COMPANY.whatsapp}`} target="_blank" rel="noreferrer" className="flex items-center gap-3 py-2 -my-2 text-ink hover:text-red transition-colors"><MessageCircle className="h-4 w-4 text-red" /> WhatsApp</a>
+                <a href={COMPANY.linkedin} target="_blank" rel="noreferrer" className="flex items-center gap-3 py-2 -my-2 text-ink hover:text-red transition-colors"><LinkedinIcon className="h-4 w-4 text-red" /> LinkedIn</a>
               </div>
             </div>
           </div>

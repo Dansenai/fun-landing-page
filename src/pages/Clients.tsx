@@ -25,7 +25,7 @@ export default function Clients() {
 
       {/* Apparel client wall */}
       <section className="bg-paper">
-        <div className="edge py-24 md:py-32">
+        <div className="edge py-16 md:py-32">
           <SectionHeading eyebrow="Apparel brands" title="A partner list, named." size="d-1" />
           <div className="mt-12 grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-px bg-line border border-line">
             {CLIENTS.map((c, i) => (
@@ -51,7 +51,7 @@ export default function Clients() {
 
       {/* Defense (charcoal) */}
       <section className="bg-charcoal text-white">
-        <div className="edge py-20 md:py-28">
+        <div className="edge py-14 md:py-28">
           <div className="grid lg:grid-cols-[1fr_1.2fr] gap-10 lg:gap-16 items-center">
             <Reveal>
               <div>
@@ -80,7 +80,7 @@ export default function Clients() {
 
       {/* Longevity + sectors */}
       <section className="bg-paper">
-        <div className="edge py-24 md:py-32">
+        <div className="edge py-16 md:py-32">
           <div className="grid lg:grid-cols-2 gap-12 lg:gap-20">
             <div>
               <SectionHeading eyebrow="Why they stay" title="Relationships measured in decades, not seasons." size="d-1" />

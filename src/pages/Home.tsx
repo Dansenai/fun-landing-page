@@ -25,7 +25,7 @@ export default function Home() {
       {/* ===== HERO ===== */}
       <section className="bg-paper">
         <div className="grid lg:grid-cols-[1.05fr_0.95fr] lg:min-h-[100svh]">
-          <div className="edge lg:!pr-12 flex flex-col justify-center lg:justify-end pt-32 pb-14 lg:pb-20">
+          <div className="edge lg:!pr-12 flex flex-col justify-center lg:justify-end pt-28 md:pt-32 pb-12 md:pb-14 lg:pb-20">
             <motion.div initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.7, ease: EASE }}
               className="eyebrow flex items-center gap-3 text-red">
               <span className="h-px w-10 bg-red" /> Since 1973 · Delhi NCR, India
@@ -83,8 +83,8 @@ export default function Home() {
 
       {/* ===== WHAT WE MAKE ===== */}
       <section className="bg-paper">
-        <div className="edge py-24 md:py-32">
-          <div className="grid lg:grid-cols-[1fr_1.05fr] gap-10 lg:gap-16 items-end mb-14">
+        <div className="edge py-16 md:py-32">
+          <div className="grid lg:grid-cols-[1fr_1.05fr] gap-10 lg:gap-16 items-end mb-10 md:mb-14">
             <SectionHeading eyebrow="Capability" title="One house. The full product range." size="d-1" />
             <Reveal delay={120}>
               <p className="text-lg leading-relaxed text-stone text-pretty">
@@ -112,7 +112,7 @@ export default function Home() {
       </section>
 
       {/* ===== COLLECTION MARQUEE (photos) ===== */}
-      <section className="bg-paper pb-24 md:pb-32 overflow-hidden">
+      <section className="bg-paper pb-16 md:pb-32 overflow-hidden">
         <Reveal><div className="edge mb-10"><p className="eyebrow text-red">From the floor — selected work</p></div></Reveal>
         <Marquee itemClassName="gap-5 pr-5">
           {COLLECTION.map((src, i) => (
@@ -127,12 +127,12 @@ export default function Home() {
       <HorizontalChain />
 
       {/* ===== FEATURE BAND (full-bleed photo) ===== */}
-      <section className="bg-paper py-24 md:py-32">
+      <section className="bg-paper py-16 md:py-32">
         <div className="edge">
           <div className="relative">
-            <Img src="/images/infra-4.jpg" alt="Garment washing and finishing at Radnik" className="aspect-[16/9] md:aspect-[21/9] w-full" parallax />
+            <Img src="/images/infra-4.jpg" alt="Garment washing and finishing at Radnik" className="aspect-[4/5] sm:aspect-[16/9] md:aspect-[21/9] w-full" parallax />
             <div className="absolute inset-0 bg-gradient-to-t from-ink/70 via-ink/10 to-transparent" />
-            <div className="absolute bottom-0 left-0 p-8 md:p-14 max-w-2xl">
+            <div className="absolute bottom-0 left-0 p-6 md:p-14 max-w-2xl">
               <TextReveal text="500,000 sq. ft. of work area, instrumented at the line." as="h2" className="d-2 text-white" />
             </div>
           </div>
@@ -143,7 +143,7 @@ export default function Home() {
       <section className="bg-sand overflow-hidden">
         <div className="grid lg:grid-cols-2">
           <Img src="/images/studio-3.jpg" alt="Real-time production monitoring at Radnik" className="min-h-[360px] lg:min-h-full" parallax />
-          <div className="px-[clamp(20px,5vw,96px)] py-20 md:py-28 lg:py-32">
+          <div className="px-[clamp(20px,5vw,96px)] py-16 md:py-28 lg:py-32">
             <div className="max-w-xl">
               <SectionHeading eyebrow="Industry 4.0" title="We measure what we make." size="d-1" />
               <Reveal delay={150}>
@@ -165,8 +165,8 @@ export default function Home() {
 
       {/* ===== RESPONSIBLE SOURCING TEASER ===== */}
       <section className="bg-paper">
-        <div className="edge py-24 md:py-32">
-          <div className="grid lg:grid-cols-2 gap-12 lg:gap-20 items-center">
+        <div className="edge py-16 md:py-32">
+          <div className="grid lg:grid-cols-2 gap-10 lg:gap-20 items-center">
             <div>
               <SectionHeading eyebrow="Responsible by design" title="Responsible by design — and by audit." size="d-1"
                 intro="GOTS, OCS, GRS, Oeko-Tex, BCI, SA 8000. Real metrics, not slogans — and a 50-year horizon that makes them worth keeping." />

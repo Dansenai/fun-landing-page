@@ -28,8 +28,8 @@ export default function Sustainability() {
 
       {/* People */}
       <section className="bg-paper">
-        <div className="edge py-24 md:py-32">
-          <div className="grid lg:grid-cols-[1fr_1.1fr] gap-12 lg:gap-16 items-start mb-14">
+        <div className="edge py-16 md:py-32">
+          <div className="grid lg:grid-cols-[1fr_1.1fr] gap-6 lg:gap-16 items-start mb-10 md:mb-14">
             <SectionHeading eyebrow="People" title="Project RISE — since 2007." size="d-1" />
             <Reveal delay={150}>
               <p className="text-lg leading-relaxed text-stone text-pretty">
@@ -66,7 +66,7 @@ export default function Sustainability() {
       <section className="bg-red text-white overflow-hidden">
         <div className="grid lg:grid-cols-2">
           <Img src="/images/esg-7.jpg" alt="Restored pond and environmental initiative by Radnik" className="min-h-[340px] lg:min-h-full" parallax />
-          <div className="px-[clamp(20px,5vw,96px)] py-20 md:py-28 lg:py-32">
+          <div className="px-[clamp(20px,5vw,96px)] py-14 md:py-28 lg:py-32">
             <div className="max-w-xl">
               <SectionHeading eyebrow="Planet" title="Restoring more than we use." size="d-1" dark accent="white" />
               <div className="mt-10 grid sm:grid-cols-2 gap-x-8 gap-y-8">
@@ -87,8 +87,8 @@ export default function Sustainability() {
 
       {/* Responsible sourcing (sand) */}
       <section className="bg-sand">
-        <div className="edge py-24 md:py-32">
-          <div className="grid lg:grid-cols-[1fr_1.1fr] gap-12 lg:gap-16">
+        <div className="edge py-16 md:py-32">
+          <div className="grid lg:grid-cols-[1fr_1.1fr] gap-8 lg:gap-16">
             <div>
               <SectionHeading eyebrow="Responsible sourcing" title="Traceable to the yarn." size="d-1" />
               <Reveal delay={150}>
@@ -117,9 +117,9 @@ export default function Sustainability() {
 
       {/* Certifications wall */}
       <section className="bg-paper">
-        <div className="edge py-24 md:py-28">
+        <div className="edge py-16 md:py-28">
           <SectionHeading eyebrow="Certifications & compliance" title="Named, scoped, and verifiable." size="d-1" />
-          <div className="mt-14 grid md:grid-cols-3 gap-10 lg:gap-16">
+          <div className="mt-10 md:mt-14 grid md:grid-cols-3 gap-8 md:gap-10 lg:gap-16">
             {[
               { title: 'Quality & management', items: CERTS.quality },
               { title: 'Materials & sustainability', items: CERTS.materials },

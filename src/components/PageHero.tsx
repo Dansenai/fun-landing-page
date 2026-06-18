@@ -17,7 +17,7 @@ const EASE = [0.16, 1, 0.3, 1] as const
 export default function PageHero({ eyebrow, title, intro, image, imageAlt }: Props) {
   return (
     <section className="bg-paper">
-      <div className="edge pt-36 md:pt-44 pb-10 md:pb-14">
+      <div className="edge pt-28 sm:pt-32 md:pt-44 pb-10 md:pb-14">
         <motion.div
           initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.7, ease: EASE }}
           className="eyebrow flex items-center gap-3 text-red mb-7"
@@ -35,7 +35,7 @@ export default function PageHero({ eyebrow, title, intro, image, imageAlt }: Pro
         )}
       </div>
       <div className="edge pb-2">
-        <Img src={image} alt={imageAlt} className="aspect-[16/7] w-full" parallax inView={false} eager />
+        <Img src={image} alt={imageAlt} className="aspect-[4/3] sm:aspect-[16/9] md:aspect-[16/7] w-full" parallax inView={false} eager />
       </div>
     </section>
   )

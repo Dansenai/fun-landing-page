@@ -22,7 +22,7 @@ export default function Capabilities() {
 
       {/* Design Studio */}
       <section className="bg-paper">
-        <div className="edge py-24 md:py-32">
+        <div className="edge py-16 md:py-32">
           <div className="grid lg:grid-cols-2 gap-12 lg:gap-20 items-center">
             <Img src="/images/studio-2.jpg" alt="Designers at work in the Radnik studio" className="aspect-[4/3] w-full" parallax />
             <div>
@@ -47,7 +47,7 @@ export default function Capabilities() {
       {/* 3D & Digital (sand) */}
       <section className="bg-sand overflow-hidden">
         <div className="grid lg:grid-cols-2">
-          <div className="px-[clamp(20px,5vw,96px)] py-20 md:py-28 lg:py-32 order-2 lg:order-1">
+          <div className="px-[clamp(20px,5vw,96px)] py-16 md:py-28 lg:py-32 order-2 lg:order-1">
             <div className="max-w-xl">
               <SectionHeading eyebrow="3D & digital" title="From proof of concept to final design — in hours." size="d-1" />
               <Reveal delay={150}>
@@ -72,7 +72,7 @@ export default function Capabilities() {
 
       {/* Quality & Labs */}
       <section className="bg-paper">
-        <div className="edge py-24 md:py-32">
+        <div className="edge py-16 md:py-32">
           <div className="grid lg:grid-cols-[1fr_1.1fr] gap-12 lg:gap-16">
             <div>
               <SectionHeading eyebrow="Quality & in-house labs" title="Buyer-accredited. Self-reliant." size="d-1" />
@@ -121,9 +121,9 @@ export default function Capabilities() {
 
       {/* Product taxonomy */}
       <section className="bg-paper">
-        <div className="edge py-24 md:py-32">
+        <div className="edge py-16 md:py-32">
           <SectionHeading eyebrow="Product range" title="What we make." size="d-1" />
-          <div className="mt-14 grid sm:grid-cols-2 lg:grid-cols-4 gap-px bg-line border border-line">
+          <div className="mt-8 md:mt-14 grid grid-cols-2 lg:grid-cols-4 gap-px bg-line border border-line">
             {CAPABILITIES.map((c, i) => (
               <Reveal key={c.title} delay={(i % 4) * 60}>
                 <div className="bg-paper p-7 h-full min-h-[160px] flex flex-col justify-between hover:bg-ink transition-colors duration-500 group">
@@ -136,7 +136,7 @@ export default function Capabilities() {
               </Reveal>
             ))}
           </div>
-          <Reveal delay={120}><Link to="/infrastructure" className="btn btn-outline mt-12">See the manufacturing network <ArrowRight className="h-4 w-4" /></Link></Reveal>
+          <Reveal delay={120}><Link to="/infrastructure" className="btn btn-outline mt-8 md:mt-12">See the manufacturing network <ArrowRight className="h-4 w-4" /></Link></Reveal>
         </div>
       </section>
 

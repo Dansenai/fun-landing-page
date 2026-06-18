@@ -34,8 +34,8 @@ export default function Infrastructure() {
 
       {/* Capacity */}
       <section className="bg-paper">
-        <div className="edge py-24 md:py-32">
-          <div className="grid lg:grid-cols-2 gap-12 lg:gap-20 items-center">
+        <div className="edge py-16 md:py-32">
+          <div className="grid lg:grid-cols-2 gap-10 lg:gap-20 items-center">
             <div>
               <SectionHeading eyebrow="The network" title="Built for volume, controlled at the line." size="d-1" />
               <Reveal delay={150}>
@@ -59,7 +59,7 @@ export default function Infrastructure() {
 
       {/* Factory network visual */}
       <section className="bg-sand border-y border-line">
-        <div className="edge py-20 md:py-24">
+        <div className="edge py-14 md:py-24">
           <div className="grid lg:grid-cols-[1fr_1.4fr] gap-10 lg:gap-16 items-center">
             <div>
               <SectionHeading eyebrow="Delhi NCR" title="A clustered network — not a single point of failure." size="d-2" />
@@ -71,8 +71,8 @@ export default function Infrastructure() {
               </Reveal>
             </div>
             <Reveal delay={120}>
-              <div className="border border-line bg-white p-8">
-                <div className="grid grid-cols-5 gap-4">
+              <div className="border border-line bg-white p-5 md:p-8">
+                <div className="grid grid-cols-5 gap-2 sm:gap-4">
                   {Array.from({ length: 15 }).map((_, i) => (
                     <div key={i} className="aspect-square rounded-sm border border-line flex items-center justify-center group hover:bg-red transition-colors duration-300">
                       <MapPin className="h-4 w-4 text-red group-hover:text-white transition-colors" strokeWidth={1.6} />
@@ -88,7 +88,7 @@ export default function Infrastructure() {
 
       {/* Gallery */}
       <section className="bg-paper">
-        <div className="edge py-24 md:py-32">
+        <div className="edge py-16 md:py-32">
           <SectionHeading eyebrow="Inside the floor" title="Where 18 million pieces a year are made." size="d-1" />
           <div className="mt-12 grid grid-cols-2 lg:grid-cols-4 auto-rows-[170px] md:auto-rows-[230px] gap-4">
             {GALLERY.map((g) => (
@@ -100,8 +100,8 @@ export default function Infrastructure() {
 
       {/* Sourcing */}
       <section className="bg-sand">
-        <div className="edge py-24 md:py-28">
-          <div className="grid lg:grid-cols-[1fr_1.2fr] gap-12 lg:gap-20">
+        <div className="edge py-16 md:py-28">
+          <div className="grid lg:grid-cols-[1fr_1.2fr] gap-10 lg:gap-20">
             <SectionHeading eyebrow="Sourcing footprint" title="Sourced wide, controlled closely." size="d-1" />
             <div>
               <Reveal>
