@@ -13,6 +13,7 @@ import CountUp from '@/components/CountUp'
 import ClientMarquee from '@/components/ClientMarquee'
 import SectionHeading from '@/components/SectionHeading'
 import CTASection from '@/components/CTASection'
+import TaglineBand from '@/components/TaglineBand'
 import HorizontalChain from '@/components/HorizontalChain'
 
 const CAP_ICONS = [Shirt, Activity, Layers, Sofa, Users, Shield, Sparkles, LifeBuoy]
@@ -55,6 +56,8 @@ export default function Home() {
           </div>
         </div>
       </section>
+
+      <TaglineBand />
 
       {/* ===== TRUST RIBBON ===== */}
       <section className="bg-paper border-y border-line py-9">

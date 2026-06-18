@@ -1,11 +1,18 @@
 import { useEffect, useState } from 'react'
 import { createPortal } from 'react-dom'
 import { Link, NavLink, useLocation } from 'react-router-dom'
-import { Menu, X, ArrowUpRight } from 'lucide-react'
+import { Menu, X, ArrowUpRight, Building2, Layers, Phone } from 'lucide-react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { NAV } from '@/data/site'
 import { cn } from '@/lib/utils'
 import Logo from './Logo'
+
+// Quick-access items for the mobile bottom dock (the rest live behind "Menu").
+const DOCK = [
+  { label: 'About', path: '/about', Icon: Building2 },
+  { label: 'Capabilities', path: '/capabilities', Icon: Layers },
+  { label: 'Contact', path: '/contact', Icon: Phone },
+]
 
 export default function Nav() {
   const [scrolled, setScrolled] = useState(false)
@@ -32,6 +39,9 @@ export default function Nav() {
     }
   }, [open])
 
+  const dockItem = 'flex flex-col items-center justify-center gap-1 rounded-full px-3.5 py-1.5 min-w-[60px] transition-colors'
+  const dockLabel = 'font-mono text-[9px] uppercase tracking-[0.1em] leading-none'
+
   return (
     <>
       <header
@@ -40,7 +50,7 @@ export default function Nav() {
           scrolled ? 'bg-paper/90 border-b border-line shadow-[0_1px_30px_-12px_rgba(0,0,0,0.2)]' : 'bg-paper/85 border-b border-line'
         )}
       >
-        <div className="edge flex items-center justify-between h-[74px]">
+        <div className="edge flex items-center justify-center lg:justify-between h-[74px]">
           <Link to="/" aria-label="Radnik Exports — home"><Logo /></Link>
 
           <nav className="hidden lg:flex items-center gap-9">
@@ -60,14 +70,44 @@ export default function Nav() {
             ))}
             <Link to="/contact" className="btn btn-red !py-3 !px-5">Start an inquiry</Link>
           </nav>
-
-          <button type="button" onClick={() => setOpen(true)} aria-label="Open menu" className="lg:hidden p-2 -mr-2 text-ink">
-            <Menu className="h-6 w-6" />
-          </button>
         </div>
       </header>
 
-      {/* Rendered through a portal to <body> — the header's backdrop-blur would otherwise
+      {/* ===== Mobile bottom dock (quick nav + full menu) ===== */}
+      <div className="lg:hidden fixed inset-x-0 bottom-0 z-40 flex justify-center px-4 pb-[max(14px,env(safe-area-inset-bottom))] pointer-events-none">
+        <nav
+          aria-label="Quick navigation"
+          className="pointer-events-auto flex items-stretch gap-0.5 rounded-full border border-white/10 bg-ink/95 px-2 py-2 text-paper backdrop-blur-md shadow-[0_20px_50px_-20px_rgba(0,0,0,0.65)]"
+        >
+          {DOCK.map(({ label, path, Icon }) => (
+            <NavLink
+              key={path}
+              to={path}
+              className={({ isActive }) => cn(dockItem, isActive ? 'text-red' : 'text-paper/70 hover:text-paper')}
+            >
+              <Icon className="h-[19px] w-[19px]" strokeWidth={1.6} />
+              <span className={dockLabel}>{label}</span>
+            </NavLink>
+          ))}
+          <button type="button" onClick={() => setOpen(true)} aria-label="Open full menu" className={cn(dockItem, 'text-paper/70 hover:text-paper')}>
+            <Menu className="h-[19px] w-[19px]" strokeWidth={1.6} />
+            <span className={dockLabel}>Menu</span>
+          </button>
+        </nav>
+      </div>
+
+      {/* ===== Mobile right-edge "Enquire Now" tab ===== */}
+      <Link
+        to="/contact"
+        aria-label="Enquire now"
+        className="lg:hidden fixed right-0 top-1/2 z-40 -translate-y-1/2 rounded-l-xl bg-red text-white shadow-lg shadow-red/30 transition-[padding] hover:pr-3.5"
+      >
+        <span className="block px-2.5 py-4 font-mono text-[11px] font-medium uppercase tracking-[0.18em] [writing-mode:vertical-rl] rotate-180">
+          Enquire&nbsp;Now
+        </span>
+      </Link>
+
+      {/* Drawer rendered through a portal to <body> — the header's backdrop-blur would otherwise
           become the containing block for this fixed overlay and trap it inside the bar. */}
       {createPortal(
         <AnimatePresence>

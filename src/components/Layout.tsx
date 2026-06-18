@@ -31,7 +31,7 @@ export default function Layout() {
           target="_blank"
           rel="noreferrer"
           aria-label="Chat on WhatsApp"
-          className="fixed bottom-5 right-5 z-40 inline-flex items-center justify-center h-12 w-12 rounded-full bg-red text-white shadow-lg shadow-red/30 transition-transform hover:scale-110"
+          className="fixed bottom-5 right-5 z-40 hidden lg:inline-flex items-center justify-center h-12 w-12 rounded-full bg-red text-white shadow-lg shadow-red/30 transition-transform hover:scale-110"
         >
           <MessageCircle className="h-5 w-5" />
         </a>

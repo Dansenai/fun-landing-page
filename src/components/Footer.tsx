@@ -59,7 +59,7 @@ export default function Footer() {
       </div>
 
       <div className="border-t border-line">
-        <div className="edge py-6 flex flex-col sm:flex-row items-center justify-between gap-3">
+        <div className="edge py-6 pb-28 lg:pb-6 flex flex-col sm:flex-row items-center justify-between gap-3">
           <p className="font-mono text-[11px] tracking-wide text-stone">© {new Date().getFullYear()} Radnik Exports. All rights reserved.</p>
           <p className="font-mono text-[11px] tracking-wide text-stone">Delhi NCR · India · Since 1973</p>
         </div>
