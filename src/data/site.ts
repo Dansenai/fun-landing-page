@@ -13,7 +13,7 @@ export const COMPANY = {
   cmd: 'Mr. Vinod Kapur',
   offices: [
     {
-      label: 'Corporate Office',
+      label: 'Registered Address',
       lines: ['Osian Building, 12/412', 'Nehru Place, South Delhi', 'New Delhi 110048'],
     },
     {

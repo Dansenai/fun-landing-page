@@ -48,7 +48,7 @@ export default function Footer() {
           <div key={o.label}>
             <h4 className="eyebrow text-stone mb-5">{o.label}</h4>
             <address className="not-italic text-sm text-stone leading-relaxed">{o.lines.map((l) => <div key={l}>{l}</div>)}</address>
-            {o.label === 'Corporate Office' && (
+            {o.label === 'Registered Address' && (
               <div className="mt-4 space-y-1 text-sm">
                 <a href={`mailto:${COMPANY.email}`} className="block text-ink/80 hover:text-red link-underline">{COMPANY.email}</a>
                 <a href={`tel:${COMPANY.phoneHref}`} className="block text-ink/80 hover:text-red link-underline">{COMPANY.phone}</a>
