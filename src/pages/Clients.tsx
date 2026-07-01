@@ -1,7 +1,7 @@
 import { Shield } from 'lucide-react'
 import PageHero from '@/components/PageHero'
 import Reveal from '@/components/motion/Reveal'
-import Img from '@/components/motion/Img'
+import Marquee from '@/components/motion/Marquee'
 import SectionHeading from '@/components/SectionHeading'
 import ClientLogoWall from '@/components/ClientLogoWall'
 import CTASection from '@/components/CTASection'
@@ -10,7 +10,10 @@ const SECTORS = [
   'High-street fashion', 'Premium & designer', 'Kids & infant wear',
   'Active & sportswear', 'Soft home & furnishings', 'Defense & government',
 ]
-const SHOWCASE = ['/images/product-1.jpg', '/images/product-4.jpg', '/images/product-6.jpg', '/images/product-7.jpg']
+const SHOWCASE = [
+  '/images/product-1.jpg', '/images/product-4.jpg', '/images/product-5.jpg',
+  '/images/product-6.jpg', '/images/product-7.jpg', '/images/product-3.jpg',
+]
 
 export default function Clients() {
   return (
@@ -31,13 +34,16 @@ export default function Clients() {
         </div>
       </section>
 
-      {/* Showcase photos */}
-      <section className="bg-paper pb-24 md:pb-28">
-        <div className="edge grid grid-cols-2 lg:grid-cols-4 gap-4">
-          {SHOWCASE.map((src) => (
-            <Img key={src} src={src} alt="Garment manufactured by Radnik for a global brand" className="aspect-[3/4] w-full" />
+      {/* Showcase photos — moving marquee */}
+      <section className="bg-paper pb-20 md:pb-28 overflow-hidden">
+        <Reveal><div className="edge mb-8 md:mb-10"><p className="eyebrow text-red">Selected work — on the floor</p></div></Reveal>
+        <Marquee itemClassName="gap-4 md:gap-5 pr-4 md:pr-5">
+          {SHOWCASE.map((src, i) => (
+            <div key={i} className="ph ph-hover w-[240px] md:w-[320px] aspect-[3/4] shrink-0">
+              <img src={src} alt="Garment manufactured by Radnik for a global brand" loading="lazy" />
+            </div>
           ))}
-        </div>
+        </Marquee>
       </section>
 
       {/* Defense (charcoal) */}
