@@ -16,7 +16,7 @@ const SOURCING_POINTS = [
 ]
 const ESG_GALLERY = [
   '/images/esg-2.jpg', '/images/esg-3.jpg', '/images/esg-5.jpg',
-  '/images/esg-8.jpg', '/images/esg-1.jpg', '/images/esg-6.jpg',
+  '/images/esg-8.jpg', '/images/studio-1.jpg', '/images/studio-4.jpg',
 ]
 
 export default function Sustainability() {
