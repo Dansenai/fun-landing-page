@@ -1,9 +1,9 @@
 import { Shield } from 'lucide-react'
-import { CLIENTS } from '@/data/site'
 import PageHero from '@/components/PageHero'
 import Reveal from '@/components/motion/Reveal'
 import Img from '@/components/motion/Img'
 import SectionHeading from '@/components/SectionHeading'
+import ClientLogoWall from '@/components/ClientLogoWall'
 import CTASection from '@/components/CTASection'
 
 const SECTORS = [
@@ -26,17 +26,8 @@ export default function Clients() {
       {/* Apparel client wall */}
       <section className="bg-paper">
         <div className="edge py-16 md:py-32">
-          <SectionHeading eyebrow="Apparel brands" title="A partner list, named." size="d-1" />
-          <div className="mt-12 grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-px bg-line border border-line">
-            {CLIENTS.map((c, i) => (
-              <Reveal key={c} delay={(i % 4) * 50}>
-                <div className="bg-paper h-28 md:h-36 flex items-center justify-center px-4 text-center hover:bg-red transition-colors duration-500 group">
-                  <span className="d-3 text-ink/65 group-hover:text-white transition-colors">{c}</span>
-                </div>
-              </Reveal>
-            ))}
-            <Reveal delay={150}><div className="bg-ink h-28 md:h-36 flex items-center justify-center px-4 text-center"><span className="font-mono text-[12px] uppercase tracking-[0.16em] text-white">+ 30 more</span></div></Reveal>
-          </div>
+          <SectionHeading eyebrow="Apparel brands" title="The brands we build for." size="d-1" />
+          <div className="mt-10 md:mt-14"><ClientLogoWall /></div>
         </div>
       </section>
 

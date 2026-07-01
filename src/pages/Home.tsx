@@ -10,7 +10,6 @@ import TextReveal from '@/components/motion/TextReveal'
 import Img from '@/components/motion/Img'
 import Marquee from '@/components/motion/Marquee'
 import CountUp from '@/components/CountUp'
-import ClientMarquee from '@/components/ClientMarquee'
 import SectionHeading from '@/components/SectionHeading'
 import CTASection from '@/components/CTASection'
 import TaglineBand from '@/components/TaglineBand'
@@ -59,10 +58,23 @@ export default function Home() {
 
       <TaglineBand />
 
-      {/* ===== TRUST RIBBON ===== */}
-      <section className="bg-paper border-y border-line py-9">
-        <Reveal><p className="eyebrow text-stone text-center mb-7">Trusted for decades by</p></Reveal>
-        <ClientMarquee />
+      {/* ===== TRUST RIBBON (client logos) ===== */}
+      <section className="bg-paper border-y border-line">
+        <div className="edge py-12 md:py-16">
+          <div className="flex flex-wrap items-end justify-between gap-4 mb-7 md:mb-8">
+            <Reveal><p className="eyebrow text-stone">Trusted by the world's leading brands</p></Reveal>
+            <Reveal delay={80}>
+              <Link to="/clients" className="inline-flex items-center gap-2 font-mono text-[12px] uppercase tracking-[0.16em] text-red hover:gap-3 transition-all">
+                See all clients <ArrowUpRight className="h-4 w-4" />
+              </Link>
+            </Reveal>
+          </div>
+          <Reveal delay={120}>
+            <figure className="overflow-hidden rounded-2xl border border-line bg-white">
+              <img src="/images/clients/uk-europe.png" alt="A selection of the global brands Radnik manufactures for" loading="lazy" className="w-full" />
+            </figure>
+          </Reveal>
+        </div>
       </section>
 
       {/* ===== PROOF BAR ===== */}
