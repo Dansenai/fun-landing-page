@@ -2,6 +2,7 @@ import { ESG_PEOPLE, ESG_PLANET, CERTS } from '@/data/site'
 import PageHero from '@/components/PageHero'
 import Reveal from '@/components/motion/Reveal'
 import Img from '@/components/motion/Img'
+import Marquee from '@/components/motion/Marquee'
 import SectionHeading from '@/components/SectionHeading'
 import CTASection from '@/components/CTASection'
 
@@ -13,7 +14,10 @@ const SOURCING_POINTS = [
   '100% recycled poly-fibre fillings for soft home',
   'Tier-2 yarn-source visibility; Oeko-Tex partners audited regularly',
 ]
-const ESG_GALLERY = ['/images/esg-2.jpg', '/images/esg-3.jpg', '/images/esg-5.jpg', '/images/esg-8.jpg']
+const ESG_GALLERY = [
+  '/images/esg-2.jpg', '/images/esg-3.jpg', '/images/esg-5.jpg',
+  '/images/esg-8.jpg', '/images/esg-1.jpg', '/images/esg-6.jpg',
+]
 
 export default function Sustainability() {
   return (
@@ -54,13 +58,15 @@ export default function Sustainability() {
         </div>
       </section>
 
-      {/* ESG gallery */}
-      <section className="bg-paper pb-8">
-        <div className="edge grid grid-cols-2 lg:grid-cols-4 gap-4">
-          {ESG_GALLERY.map((src) => (
-            <Img key={src} src={src} alt="Radnik CSR and environmental initiative" className="aspect-square w-full" />
+      {/* ESG gallery — moving marquee */}
+      <section className="bg-paper pb-10 md:pb-12 overflow-hidden">
+        <Marquee itemClassName="gap-4 md:gap-5 pr-4 md:pr-5">
+          {ESG_GALLERY.map((src, i) => (
+            <div key={i} className="ph ph-hover w-[260px] md:w-[340px] aspect-square shrink-0">
+              <img src={src} alt="Radnik CSR and environmental initiative" loading="lazy" />
+            </div>
           ))}
-        </div>
+        </Marquee>
       </section>
 
       {/* Planet (red) */}
