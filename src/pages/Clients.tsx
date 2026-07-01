@@ -31,6 +31,13 @@ export default function Clients() {
         <div className="edge py-16 md:py-32">
           <SectionHeading eyebrow="Apparel brands" title="The brands we build for." size="d-1" />
           <div className="mt-10 md:mt-14"><ClientLogoWall /></div>
+          <Reveal delay={200}>
+            <p className="mt-12 md:mt-16 max-w-3xl text-base leading-relaxed text-stone">
+              <span className="text-ink">Designer collaborations, produced for H&amp;M</span> — Balmain, Kenzo, Moschino,
+              Roberto Cavalli, Isabel Marant, Sabyasachi, Giambattista Valli, Jonathan Adler, Anamika Khanna, Mantsho and
+              Stella McCartney.
+            </p>
+          </Reveal>
         </div>
       </section>
 

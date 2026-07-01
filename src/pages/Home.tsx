@@ -12,6 +12,7 @@ import Marquee from '@/components/motion/Marquee'
 import CountUp from '@/components/CountUp'
 import SectionHeading from '@/components/SectionHeading'
 import CTASection from '@/components/CTASection'
+import ClientLogoWall from '@/components/ClientLogoWall'
 import TaglineBand from '@/components/TaglineBand'
 import HorizontalChain from '@/components/HorizontalChain'
 
@@ -59,22 +60,16 @@ export default function Home() {
       <TaglineBand />
 
       {/* ===== TRUST RIBBON (client logos) ===== */}
-      <section className="bg-paper border-y border-line">
-        <div className="edge py-12 md:py-16">
-          <div className="flex flex-wrap items-end justify-between gap-4 mb-7 md:mb-8">
-            <Reveal><p className="eyebrow text-stone">Trusted by the world's leading brands</p></Reveal>
-            <Reveal delay={80}>
-              <Link to="/clients" className="inline-flex items-center gap-2 font-mono text-[12px] uppercase tracking-[0.16em] text-red hover:gap-3 transition-all">
-                See all clients <ArrowUpRight className="h-4 w-4" />
-              </Link>
-            </Reveal>
-          </div>
-          <Reveal delay={120}>
-            <figure className="group overflow-hidden rounded-2xl border border-line bg-white transition-all duration-500 ease-out hover:-translate-y-1 hover:border-red/30 hover:shadow-[0_34px_70px_-34px_rgba(23,23,27,0.28)]">
-              <img src="/images/clients/uk-europe.png" alt="A selection of the global brands Radnik manufactures for" loading="lazy" className="w-full transition-transform duration-700 ease-out group-hover:scale-[1.015]" />
-            </figure>
+      <section className="bg-paper border-y border-line py-12 md:py-16 overflow-hidden">
+        <div className="edge flex flex-wrap items-end justify-between gap-4 mb-9 md:mb-11">
+          <Reveal><p className="eyebrow text-stone">Trusted by the world's leading brands</p></Reveal>
+          <Reveal delay={80}>
+            <Link to="/clients" className="inline-flex items-center gap-2 font-mono text-[12px] uppercase tracking-[0.16em] text-red hover:gap-3 transition-all">
+              See all clients <ArrowUpRight className="h-4 w-4" />
+            </Link>
           </Reveal>
         </div>
+        <Reveal delay={120}><ClientLogoWall variant="marquee" /></Reveal>
       </section>
 
       {/* ===== PROOF BAR ===== */}
