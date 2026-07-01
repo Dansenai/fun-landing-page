@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react'
 import { createPortal } from 'react-dom'
 import { Link, NavLink, useLocation } from 'react-router-dom'
-import { Menu, X, ArrowUpRight, Building2, Layers, Phone } from 'lucide-react'
+import { Home, Menu, X, ArrowUpRight, Building2, Layers, Phone } from 'lucide-react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { NAV } from '@/data/site'
 import { cn } from '@/lib/utils'
@@ -9,6 +9,7 @@ import Logo from './Logo'
 
 // Quick-access items for the mobile bottom dock (the rest live behind "Menu").
 const DOCK = [
+  { label: 'Home', path: '/', Icon: Home, end: true },
   { label: 'About', path: '/about', Icon: Building2 },
   { label: 'Capabilities', path: '/capabilities', Icon: Layers },
   { label: 'Contact', path: '/contact', Icon: Phone },
@@ -39,8 +40,8 @@ export default function Nav() {
     }
   }, [open])
 
-  const dockItem = 'flex flex-col items-center justify-center gap-1 rounded-full px-3.5 py-1.5 min-w-[60px] transition-colors'
-  const dockLabel = 'font-mono text-[9px] uppercase tracking-[0.1em] leading-none'
+  const dockItem = 'relative flex flex-col items-center justify-center gap-1 rounded-full px-2 py-1.5 min-w-[52px] transition-all duration-200 active:scale-90'
+  const dockLabel = 'relative z-10 font-mono text-[8px] uppercase tracking-[0.06em] leading-none whitespace-nowrap'
 
   return (
     <>
@@ -79,18 +80,30 @@ export default function Nav() {
           aria-label="Quick navigation"
           className="pointer-events-auto flex items-stretch gap-0.5 rounded-full border border-white/10 bg-ink/95 px-2 py-2 text-paper backdrop-blur-md shadow-[0_20px_50px_-20px_rgba(0,0,0,0.65)]"
         >
-          {DOCK.map(({ label, path, Icon }) => (
+          {DOCK.map(({ label, path, Icon, end }) => (
             <NavLink
               key={path}
               to={path}
+              end={end}
               className={({ isActive }) => cn(dockItem, isActive ? 'text-red' : 'text-paper/70 hover:text-paper')}
             >
-              <Icon className="h-[19px] w-[19px]" strokeWidth={1.6} />
-              <span className={dockLabel}>{label}</span>
+              {({ isActive }) => (
+                <>
+                  {isActive && (
+                    <motion.span
+                      layoutId="dockActive"
+                      transition={{ type: 'spring', stiffness: 420, damping: 34 }}
+                      className="absolute inset-0 rounded-full bg-white/[0.09]"
+                    />
+                  )}
+                  <Icon className={cn('relative z-10 h-[19px] w-[19px] transition-transform duration-300', isActive && 'scale-110')} strokeWidth={1.7} />
+                  <span className={dockLabel}>{label}</span>
+                </>
+              )}
             </NavLink>
           ))}
           <button type="button" onClick={() => setOpen(true)} aria-label="Open full menu" className={cn(dockItem, 'text-paper/70 hover:text-paper')}>
-            <Menu className="h-[19px] w-[19px]" strokeWidth={1.6} />
+            <Menu className="relative z-10 h-[19px] w-[19px]" strokeWidth={1.7} />
             <span className={dockLabel}>Menu</span>
           </button>
         </nav>
@@ -100,7 +113,7 @@ export default function Nav() {
       <Link
         to="/contact"
         aria-label="Enquire now"
-        className="lg:hidden fixed right-0 top-1/2 z-40 -translate-y-1/2 rounded-l-xl bg-red text-white shadow-lg shadow-red/30 transition-[padding] hover:pr-3.5"
+        className="lg:hidden fixed right-0 top-1/2 z-40 origin-right -translate-y-1/2 rounded-l-xl bg-red text-white shadow-lg shadow-red/30 transition-all duration-200 hover:pr-3.5 hover:shadow-xl hover:shadow-red/40 active:scale-95"
       >
         <span className="block px-2.5 py-4 font-mono text-[11px] font-medium uppercase tracking-[0.18em] [writing-mode:vertical-rl] rotate-180">
           Enquire&nbsp;Now

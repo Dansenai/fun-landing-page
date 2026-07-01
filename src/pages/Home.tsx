@@ -70,8 +70,8 @@ export default function Home() {
             </Reveal>
           </div>
           <Reveal delay={120}>
-            <figure className="overflow-hidden rounded-2xl border border-line bg-white">
-              <img src="/images/clients/uk-europe.png" alt="A selection of the global brands Radnik manufactures for" loading="lazy" className="w-full" />
+            <figure className="group overflow-hidden rounded-2xl border border-line bg-white transition-all duration-500 ease-out hover:-translate-y-1 hover:border-red/30 hover:shadow-[0_34px_70px_-34px_rgba(23,23,27,0.28)]">
+              <img src="/images/clients/uk-europe.png" alt="A selection of the global brands Radnik manufactures for" loading="lazy" className="w-full transition-transform duration-700 ease-out group-hover:scale-[1.015]" />
             </figure>
           </Reveal>
         </div>

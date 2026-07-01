@@ -91,6 +91,8 @@
   .btn-light-outline:hover { background: #fff; color: theme('colors.ink'); }
   .btn-paper { background: #fff; color: theme('colors.ink'); }
   .btn-paper:hover { transform: translateY(-2px); box-shadow: 0 14px 40px -16px rgba(0,0,0,0.45); }
+  /* Tactile press feedback — every button dips on click/tap (overrides the hover lift). */
+  .btn:active { transform: scale(0.96); transition-duration: 120ms; }
 
   /* Photo treatments */
   .ph { position: relative; overflow: hidden; background: theme('colors.clay'); }
