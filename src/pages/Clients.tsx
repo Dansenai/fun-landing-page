@@ -31,12 +31,22 @@ export default function Clients() {
         <div className="edge py-16 md:py-32">
           <SectionHeading eyebrow="Apparel brands" title="The brands we build for." size="d-1" />
           <div className="mt-10 md:mt-14"><ClientLogoWall /></div>
-          <Reveal delay={200}>
-            <p className="mt-12 md:mt-16 max-w-3xl text-base leading-relaxed text-stone">
-              <span className="text-ink">Designer collaborations, produced for H&amp;M</span> — Balmain, Kenzo, Moschino,
-              Roberto Cavalli, Isabel Marant, Sabyasachi, Giambattista Valli, Jonathan Adler, Anamika Khanna, Mantsho and
-              Stella McCartney.
-            </p>
+          {/* H&M designer collaborations */}
+          <Reveal delay={150}>
+            <div className="mt-16 md:mt-24">
+              <div className="mb-6 flex items-center gap-2 md:mb-8">
+                <span aria-hidden className="h-[6px] w-[6px] rounded-full bg-red" />
+                <span className="font-mono text-[11px] uppercase tracking-[0.2em] text-stone">Designer collaborations, produced for H&amp;M</span>
+              </div>
+              <div className="group max-w-5xl overflow-hidden">
+                <img
+                  src="/images/clients/collabs.png"
+                  alt="H&M designer collaboration collections manufactured by Radnik — Balmain, Kenzo, Moschino, Roberto Cavalli, Isabel Marant, Sabyasachi, Giambattista Valli, Jonathan Adler, Anamika Khanna, Mantsho and Stella McCartney"
+                  loading="lazy"
+                  className="w-full mix-blend-multiply transition-transform duration-700 ease-out group-hover:scale-[1.02]"
+                />
+              </div>
+            </div>
           </Reveal>
         </div>
       </section>
