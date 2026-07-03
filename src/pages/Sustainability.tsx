@@ -29,7 +29,7 @@ const ESG_GALLERY = [
   '/images/esg-8.jpg', '/images/studio-1.jpg', '/images/studio-4.jpg',
 ]
 // Certification seals extracted from the deck's certifications wall.
-const CERT_LOGOS = Array.from({ length: 15 }, (_, i) => `/images/certs/cert-${String(i).padStart(2, '0')}.png`)
+const CERT_LOGOS = Array.from({ length: 20 }, (_, i) => `/images/certs/cert-${String(i).padStart(2, '0')}.png`)
 
 /* ── Animated horizontal bar (materials / DE&I) ── */
 function Bar({ pct, delay = 0, tone = 'red', track = 'bg-line' }: { pct: number; delay?: number; tone?: 'red' | 'stone'; track?: string }) {

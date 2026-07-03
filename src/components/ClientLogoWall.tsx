@@ -2,7 +2,7 @@ import Reveal from './motion/Reveal'
 import Marquee from './motion/Marquee'
 
 // Individual brand logos extracted from the Radnik deck (crisp, per-logo).
-const LOGOS = Array.from({ length: 44 }, (_, i) => `/images/clients/logos/logo-${String(i).padStart(2, '0')}.png`)
+const LOGOS = Array.from({ length: 46 }, (_, i) => `/images/clients/logos/logo-${String(i).padStart(2, '0')}.png`)
 
 // grayscale + faded by default on pointer devices, pops to full colour on hover; always colour on touch.
 const IMG =
