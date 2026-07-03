@@ -11,9 +11,21 @@ const SECTORS = [
   'Active & sportswear', 'Soft home & furnishings', 'Defense & government',
 ]
 const COLLABS = Array.from({ length: 11 }, (_, i) => `/images/clients/collab-logos/collab-${String(i).padStart(2, '0')}.png`)
+// The other half of the 24-look collection gallery — Home runs the first 12,
+// so no look repeats anywhere on the site.
 const SHOWCASE = [
-  '/images/product-1.jpg', '/images/product-4.jpg', '/images/product-5.jpg',
-  '/images/product-6.jpg', '/images/product-7.jpg', '/images/product-3.jpg',
+  { src: '/images/collection/look-01.jpg', alt: 'Kids cream sun dress' },
+  { src: '/images/collection/look-04.jpg', alt: 'Navy tee with lurex-stripe maxi skirt' },
+  { src: '/images/collection/look-14.jpg', alt: 'Kids printed summer dresses' },
+  { src: '/images/collection/look-02.jpg', alt: 'White boho dress' },
+  { src: '/images/product-4.jpg', alt: 'Kids dip-dye wide-leg jumpsuit' },
+  { src: '/images/collection/look-15.jpg', alt: 'Kids tie-dye tee with printed leggings' },
+  { src: '/images/collection/look-03.jpg', alt: 'Kids graphic tee and suede skirt' },
+  { src: '/images/product-6.jpg', alt: 'Toddler embroidered red romper' },
+  { src: '/images/collection/look-13.jpg', alt: 'Kids tie-dye hoodie' },
+  { src: '/images/collection/look-17.jpg', alt: 'Kids white embroidered dress' },
+  { src: '/images/product-7.jpg', alt: 'Kids khaki co-ord set' },
+  { src: '/images/collection/look-16.jpg', alt: 'Toddler floral romper' },
 ]
 
 export default function Clients() {
@@ -47,11 +59,11 @@ export default function Clients() {
 
       {/* Showcase photos — moving marquee */}
       <section className="bg-paper pb-20 md:pb-28 overflow-hidden">
-        <Reveal><div className="edge mb-8 md:mb-10"><p className="eyebrow text-red">Selected work — on the floor</p></div></Reveal>
+        <Reveal><div className="edge mb-8 md:mb-10"><p className="eyebrow text-red">The garments behind the logos</p></div></Reveal>
         <Marquee itemClassName="gap-4 md:gap-5 pr-4 md:pr-5">
-          {SHOWCASE.map((src, i) => (
-            <div key={i} className="ph ph-hover w-[240px] md:w-[320px] aspect-[3/4] shrink-0">
-              <img src={src} alt="Garment manufactured by Radnik for a global brand" loading="lazy" />
+          {SHOWCASE.map((g) => (
+            <div key={g.src} className="ph ph-hover w-[240px] md:w-[320px] aspect-[3/4] shrink-0">
+              <img src={g.src} alt={g.alt} loading="lazy" />
             </div>
           ))}
         </Marquee>

@@ -22,7 +22,22 @@ import HorizontalChain from '@/components/HorizontalChain'
 const CAP_ICONS = [Shirt, Activity, Layers, Sofa, Users, Shield, Sparkles, LifeBuoy]
 const EASE = [0.16, 1, 0.3, 1] as const
 const SNAP = [0.76, 0, 0.24, 1] as const // hard in-out — drafted lines & the slab sweep
-const COLLECTION = ['/images/studio-1.jpg', '/images/product-1.jpg', '/images/infra-2.jpg', '/images/product-6.jpg', '/images/studio-2.jpg', '/images/product-4.jpg', '/images/product-7.jpg', '/images/product-3.jpg']
+// One half of the 24-look collection gallery (radnikexports.com) — the other half runs
+// on the Clients page, so no look repeats anywhere on the site.
+const COLLECTION = [
+  { src: '/images/product-2.jpg', alt: 'Printed swimwear from the Radnik collection' },
+  { src: '/images/collection/look-07.jpg', alt: 'Pale-blue embroidered blouse' },
+  { src: '/images/collection/look-06.jpg', alt: 'Kids tie-dye tee' },
+  { src: '/images/collection/look-05.jpg', alt: 'Dark floral midi dress' },
+  { src: '/images/product-3.jpg', alt: 'Embroidered denim puffer jacket' },
+  { src: '/images/collection/look-10.jpg', alt: 'Yellow broderie-anglaise top' },
+  { src: '/images/collection/look-09.jpg', alt: 'Kids pink military jacket and printed skirt' },
+  { src: '/images/collection/look-08.jpg', alt: 'White broderie-anglaise dress' },
+  { src: '/images/product-5.jpg', alt: 'Knit-trimmed streetwear look' },
+  { src: '/images/collection/look-11.jpg', alt: 'Olive utility shirt-dress' },
+  { src: '/images/product-1.jpg', alt: 'Kids embroidered top with denim culottes' },
+  { src: '/images/collection/look-12.jpg', alt: 'Folk-embroidered white blouse' },
+]
 
 /**
  * HERO — a directed title sequence on load (rule draws → words rise → red slab
@@ -247,11 +262,11 @@ export default function Home() {
 
       {/* ===== COLLECTION MARQUEE (photos) ===== */}
       <section className="bg-paper pb-16 md:pb-32 overflow-hidden">
-        <Reveal><div className="edge mb-10"><p className="eyebrow text-red">From the floor — selected work</p></div></Reveal>
+        <Reveal><div className="edge mb-10"><p className="eyebrow text-red">Off the line — the collection</p></div></Reveal>
         <Marquee itemClassName="gap-5 pr-5">
-          {COLLECTION.map((src, i) => (
-            <div key={i} className="ph ph-hover w-[280px] md:w-[360px] aspect-[3/4] shrink-0">
-              <img src={src} alt="Radnik manufactured garment / production detail" loading="lazy" />
+          {COLLECTION.map((g) => (
+            <div key={g.src} className="ph ph-hover w-[280px] md:w-[360px] aspect-[3/4] shrink-0">
+              <img src={g.src} alt={g.alt} loading="lazy" />
             </div>
           ))}
         </Marquee>
