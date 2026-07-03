@@ -6,7 +6,7 @@ const LOGOS = Array.from({ length: 44 }, (_, i) => `/images/clients/logos/logo-$
 
 // grayscale + faded by default on pointer devices, pops to full colour on hover; always colour on touch.
 const IMG =
-  'max-h-full w-auto max-w-full object-contain mix-blend-multiply transition-all duration-500 ease-out ' +
+  'blend-logo max-h-full w-auto max-w-full object-contain mix-blend-multiply transition-all duration-500 ease-out ' +
   '[@media(hover:hover)]:grayscale [@media(hover:hover)]:opacity-60'
 
 export default function ClientLogoWall({
@@ -32,7 +32,7 @@ export default function ClientLogoWall({
     <div className="grid grid-cols-3 gap-x-4 gap-y-6 sm:grid-cols-4 sm:gap-x-6 sm:gap-y-8 md:grid-cols-5 lg:grid-cols-6">
       {logos.map((src, i) => (
         <Reveal key={i} delay={(i % 6) * 45}>
-          <div className="group flex h-16 items-center justify-center rounded-2xl px-3 transition-all duration-300 ease-out hover:-translate-y-0.5 hover:bg-white hover:shadow-[0_22px_44px_-22px_rgba(23,23,27,0.22)] md:h-[74px] md:px-5">
+          <div className="group flex h-16 items-center justify-center rounded-2xl px-3 transition-all duration-300 ease-out hover:-translate-y-0.5 hover:bg-surface hover:shadow-[0_22px_44px_-22px_rgba(23,23,27,0.22)] md:h-[74px] md:px-5">
             <img
               src={src}
               alt="Brand manufactured by Radnik"

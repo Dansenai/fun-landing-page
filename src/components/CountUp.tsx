@@ -19,7 +19,7 @@ function format(n: number, decimals: number, group: boolean) {
   return group ? r.toLocaleString('en-US') : String(r)
 }
 
-export default function CountUp({ value, prefix = '', suffix = '', decimals = 0, duration = 1500, group = true, className }: Props) {
+export default function CountUp({ value, prefix = '', suffix = '', decimals = 0, duration = 2400, group = true, className }: Props) {
   const ref = useRef<HTMLSpanElement | null>(null)
   const [display, setDisplay] = useState(0)
   const started = useRef(false)

@@ -9,12 +9,13 @@ type Props = {
   intro?: ReactNode
   image: string
   imageAlt: string
+  bw?: boolean // grayscale by default, blooms to colour on hover (matches the brand's logo-wall treatment)
 }
 
 const EASE = [0.16, 1, 0.3, 1] as const
 
 /** Interior-page hero — light, with a masked headline and a wide parallax photo band. */
-export default function PageHero({ eyebrow, title, intro, image, imageAlt }: Props) {
+export default function PageHero({ eyebrow, title, intro, image, imageAlt, bw = true }: Props) {
   return (
     <section className="bg-paper">
       <div className="edge pt-28 sm:pt-32 md:pt-44 pb-10 md:pb-14">
@@ -35,7 +36,7 @@ export default function PageHero({ eyebrow, title, intro, image, imageAlt }: Pro
         )}
       </div>
       <div className="edge pb-2">
-        <Img src={image} alt={imageAlt} className="aspect-[4/3] sm:aspect-[16/9] md:aspect-[16/7] w-full" parallax inView={false} eager />
+        <Img src={image} alt={imageAlt} className="aspect-[4/3] sm:aspect-[16/9] md:aspect-[16/7] w-full" parallax inView={false} eager bw={bw} />
       </div>
     </section>
   )

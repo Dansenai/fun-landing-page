@@ -9,6 +9,15 @@
       content="Radnik Exports — a 50-year, technology-led apparel and technical-textile manufacturing house in Delhi NCR. 1.25M+ pieces a month for the world's leading brands and India's defense forces."
     />
     <meta name="theme-color" content="#FBFAF6" />
+    <!-- Theme boot — runs before paint so there's never a light flash. Dark by default;
+         light is opt-in via the toggle, and the visitor's choice persists. -->
+    <script>
+      try {
+        var dark = localStorage.getItem('rk-theme') !== 'light'
+        document.documentElement.classList.toggle('dark', dark)
+        if (dark) document.querySelector('meta[name="theme-color"]').setAttribute('content', '#141311')
+      } catch (e) {}
+    </script>
 
     <!-- Open Graph -->
     <meta property="og:type" content="website" />

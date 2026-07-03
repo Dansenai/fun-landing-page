@@ -26,7 +26,7 @@ export default function Capabilities() {
           <div className="grid lg:grid-cols-2 gap-12 lg:gap-20 items-center">
             <Img src="/images/studio-2.jpg" alt="Designers at work in the Radnik studio" className="aspect-[4/3] w-full" parallax />
             <div>
-              <SectionHeading eyebrow="Design studio" title="20 designers. 70% of our business." size="d-1" />
+              <SectionHeading eyebrow="Design studio" title="16 designers. 70% of our business." size="d-1" />
               <Reveal delay={150}>
                 <p className="mt-6 text-lg leading-relaxed text-stone text-pretty">
                   Our in-house studio assigns designers to individual clients and develops prints, jacquards and
@@ -36,8 +36,8 @@ export default function Capabilities() {
                 </p>
               </Reveal>
               <div className="mt-8 grid grid-cols-2 gap-px bg-line border border-line max-w-md">
-                <div className="bg-white p-5"><div className="d-2 text-red">20</div><div className="mt-1 font-mono text-[11px] uppercase tracking-wide text-stone">In-house designers</div></div>
-                <div className="bg-white p-5"><div className="d-2 text-red">~70%</div><div className="mt-1 font-mono text-[11px] uppercase tracking-wide text-stone">Of business, our design</div></div>
+                <div className="bg-surface p-5"><div className="d-2 text-red">16</div><div className="mt-1 font-mono text-[11px] uppercase tracking-wide text-stone">In-house designers</div></div>
+                <div className="bg-surface p-5"><div className="d-2 text-red">~70%</div><div className="mt-1 font-mono text-[11px] uppercase tracking-wide text-stone">Of business, our design</div></div>
               </div>
             </div>
           </div>
@@ -90,7 +90,7 @@ export default function Capabilities() {
               </Reveal>
             </div>
             <Reveal delay={150}>
-              <div className="bg-white border border-line p-7 md:p-9">
+              <div className="bg-surface border border-line p-7 md:p-9">
                 <div className="eyebrow text-red mb-5">In-house lab — 16 test parameters</div>
                 <ul className="grid sm:grid-cols-2 gap-x-6 gap-y-3">
                   {LAB_TESTS.map((t) => (
@@ -126,7 +126,7 @@ export default function Capabilities() {
           <div className="mt-8 md:mt-14 grid grid-cols-2 lg:grid-cols-4 gap-px bg-line border border-line">
             {CAPABILITIES.map((c, i) => (
               <Reveal key={c.title} delay={(i % 4) * 60}>
-                <div className="bg-paper p-7 h-full min-h-[160px] flex flex-col justify-between hover:bg-ink transition-colors duration-500 group">
+                <div className="bg-paper p-7 h-full min-h-[160px] flex flex-col justify-between hover:bg-night transition-colors duration-500 group">
                   <div className="font-mono text-xs text-red tracking-widest">{String(i + 1).padStart(2, '0')}</div>
                   <div>
                     <h3 className="d-3 text-ink group-hover:text-white transition-colors">{c.title}</h3>

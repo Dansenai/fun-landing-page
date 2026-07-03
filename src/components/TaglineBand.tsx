@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from 'react'
-import { AnimatePresence, motion, useReducedMotion } from 'framer-motion'
+import { AnimatePresence, motion, useReducedMotion, useScroll, useTransform } from 'framer-motion'
 import { cn } from '@/lib/utils'
 
 /**
@@ -13,9 +13,8 @@ import { cn } from '@/lib/utils'
 
 type Seg = { t: string; red?: boolean }
 
-// First line is the user's brand tagline; the rest are on-brand promises.
+// The brand slogan now leads the hero; the band rotates the supporting promises.
 const QUOTES: Seg[][] = [
-  [{ t: 'Delivering Fashion That is ' }, { t: 'Just Right, in Style, on Time.', red: true }],
   [{ t: 'Built to ' }, { t: 'Fit Flawlessly', red: true }, { t: ', at ' }, { t: 'Any Scale.', red: true }],
   [{ t: "Trusted by the World's " }, { t: 'Most Demanding', red: true }, { t: ' Brands — and ' }, { t: 'Armed Forces.', red: true }],
   [{ t: 'A Million Garments a Month — ' }, { t: 'Every Stitch Accounted For.', red: true }],
@@ -30,6 +29,19 @@ export default function TaglineBand() {
   const reduce = useReducedMotion()
   const [active, setActive] = useState(0)
   const videoRef = useRef<HTMLVideoElement>(null)
+  const cardRef = useRef<HTMLDivElement>(null)
+  const videoPanelRef = useRef<HTMLDivElement>(null)
+  const [isLg] = useState(() => window.matchMedia('(min-width: 1024px)').matches)
+
+  // Scrubbed settle — the card seats itself onto the dimming hero as it enters
+  // (direct scroll mapping, reversible under Lenis; no spring).
+  const { scrollYProgress: settle } = useScroll({ target: cardRef, offset: ['start end', 'start 0.35'] })
+  const cardScale = useTransform(settle, [0, 1], [isLg ? 0.955 : 0.975, 1])
+  const cardY = useTransform(settle, [0, 1], [isLg ? 56 : 32, 0])
+
+  // Video counter-parallax — interior depth while the band crosses the viewport.
+  const { scrollYProgress: drift } = useScroll({ target: videoPanelRef, offset: ['start end', 'end start'] })
+  const videoY = useTransform(drift, [0, 1], ['-5%', '5%'])
 
   // Auto-rotate the promises.
   useEffect(() => {
@@ -58,13 +70,17 @@ export default function TaglineBand() {
   const quote = QUOTES[active]
   const renderQuote = () =>
     quote.map((seg, si) => (
-      <span key={si} className={seg.red ? 'text-red' : 'text-paper'}>{seg.t}</span>
+      <span key={si} className={seg.red ? 'text-red' : 'text-white'}>{seg.t}</span>
     ))
 
   return (
     <section aria-label="The promise" className="relative w-full bg-paper">
       <div className="edge py-12 sm:py-16 md:py-24">
-        <div className="relative overflow-hidden rounded-[26px] bg-charcoal text-paper shadow-[0_44px_120px_-52px_rgba(23,23,27,0.6)]">
+        <motion.div
+          ref={cardRef}
+          style={reduce ? undefined : { scale: cardScale, y: cardY, transformOrigin: 'center bottom' }}
+          className="relative overflow-hidden rounded-[26px] bg-charcoal text-white shadow-[0_44px_120px_-52px_rgba(23,23,27,0.6)]"
+        >
           <div className="grid lg:grid-cols-2">
             {/* ===== Text panel ===== */}
             <div className="relative flex flex-col px-7 py-8 sm:px-10 sm:py-10 md:px-14 md:py-12 lg:min-h-[480px]">
@@ -122,10 +138,15 @@ export default function TaglineBand() {
             </div>
 
             {/* ===== Video panel (fully visible) ===== */}
-            <div className="relative aspect-video border-t border-white/[0.08] lg:aspect-auto lg:min-h-full lg:border-l lg:border-t-0">
-              <video
+            <div ref={videoPanelRef} className="relative aspect-video overflow-hidden border-t border-white/[0.08] lg:aspect-auto lg:min-h-full lg:border-l lg:border-t-0">
+              {/* Oversized + counter-drifting for interior depth (Img.tsx parallax recipe) */}
+              <motion.video
                 ref={videoRef}
-                className="absolute inset-0 h-full w-full object-cover"
+                style={reduce ? undefined : { y: videoY }}
+                className={cn(
+                  'absolute inset-x-0 w-full object-cover',
+                  reduce ? 'inset-y-0 h-full' : 'top-[-6%] h-[112%]'
+                )}
                 src="/videos/industry-4-0.mp4"
                 poster="/images/studio-3.jpg"
                 muted
@@ -163,7 +184,7 @@ export default function TaglineBand() {
               </div>
             </div>
           </div>
-        </div>
+        </motion.div>
       </div>
     </section>
   )

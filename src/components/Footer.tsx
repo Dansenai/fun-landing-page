@@ -6,9 +6,10 @@ import Marquee from './motion/Marquee'
 import { LinkedinIcon } from './icons'
 
 export default function Footer() {
-  const allCerts = [...CERTS.quality, ...CERTS.materials, ...CERTS.defense]
+  const allCerts = [...CERTS.quality, ...CERTS.social, ...CERTS.materials, ...CERTS.climate, ...CERTS.defense]
   return (
-    <footer className="bg-sand text-ink border-t border-line">
+    // relative z-10 — must paint above the home hero, which stays pinned (positioned) behind the page
+    <footer className="relative z-10 bg-sand text-ink border-t border-line">
       <Link to="/contact" className="block border-b border-line py-8 group">
         <Marquee>
           <span className="d-2 text-ink/80 group-hover:text-red transition-colors px-8 flex items-center gap-8">

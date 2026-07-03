@@ -2,10 +2,13 @@ import { useEffect, useState } from 'react'
 import { createPortal } from 'react-dom'
 import { Link, NavLink, useLocation } from 'react-router-dom'
 import { Home, Menu, X, ArrowUpRight, Building2, Layers, Phone } from 'lucide-react'
-import { motion, AnimatePresence } from 'framer-motion'
+import { motion, AnimatePresence, useReducedMotion } from 'framer-motion'
 import { NAV } from '@/data/site'
 import { cn } from '@/lib/utils'
 import Logo from './Logo'
+import ThemeToggle from './ThemeToggle'
+
+const EASE = [0.16, 1, 0.3, 1] as const
 
 // Quick-access items for the mobile bottom dock (the rest live behind "Menu").
 const DOCK = [
@@ -19,6 +22,10 @@ export default function Nav() {
   const [scrolled, setScrolled] = useState(false)
   const [open, setOpen] = useState(false)
   const { pathname } = useLocation()
+  const reduce = useReducedMotion()
+  // Chrome settles after the hero's title sequence — but only when the full load IS the
+  // home hero; deep links to inner pages get their chrome almost immediately.
+  const [introDelay] = useState(() => (window.location.pathname === '/' ? 1.3 : 0.15))
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 20)
@@ -45,23 +52,31 @@ export default function Nav() {
 
   return (
     <>
-      <header
+      <motion.header
+        initial={reduce ? false : { y: -14, opacity: 0 }}
+        animate={{ y: 0, opacity: 1 }}
+        transition={{ delay: introDelay, duration: 0.55, ease: EASE }}
         className={cn(
-          'fixed inset-x-0 top-0 z-50 transition-all duration-500 ease-out text-ink backdrop-blur-xl',
+          // colors/shadow only — transition-all would fight the framer entrance transform
+          'fixed inset-x-0 top-0 z-50 transition-[background-color,border-color,box-shadow] duration-500 ease-out text-ink backdrop-blur-xl',
           scrolled ? 'bg-paper/90 border-b border-line shadow-[0_1px_30px_-12px_rgba(0,0,0,0.2)]' : 'bg-paper/85 border-b border-line'
         )}
       >
-        <div className="edge flex items-center justify-center lg:justify-between h-[74px]">
+        <div className="edge relative flex items-center justify-center lg:justify-between h-[74px]">
           <Link to="/" aria-label="Radnik Exports — home"><Logo /></Link>
 
-          <nav className="hidden lg:flex items-center gap-9">
-            {NAV.map((item) => (
+          {/* mobile: header only holds the centered logo, so the right corner is free */}
+          <ThemeToggle className="lg:hidden absolute right-[clamp(20px,5vw,96px)] top-1/2 -translate-y-1/2" />
+
+          <nav className="hidden lg:flex items-center gap-[18px] xl:gap-9">
+            {[{ label: 'Home', path: '/' }, ...NAV].map((item) => (
               <NavLink
                 key={item.path}
                 to={item.path}
+                end={item.path === '/'}
                 className={({ isActive }) =>
                   cn(
-                    'font-mono text-[11px] uppercase tracking-[0.18em] link-underline transition-colors',
+                    'font-mono text-[11px] uppercase tracking-[0.1em] xl:tracking-[0.18em] link-underline transition-colors whitespace-nowrap',
                     isActive ? 'text-ink' : 'text-stone hover:text-ink'
                   )
                 }
@@ -69,23 +84,27 @@ export default function Nav() {
                 {item.label}
               </NavLink>
             ))}
-            <Link to="/contact" className="btn btn-red !py-3 !px-5">Start an inquiry</Link>
+            <ThemeToggle />
+            <Link to="/contact" className="btn btn-red !py-3 !px-4 xl:!px-5">Start an inquiry</Link>
           </nav>
         </div>
-      </header>
+      </motion.header>
 
       {/* ===== Mobile bottom dock (quick nav + full menu) ===== */}
       <div className="lg:hidden fixed inset-x-0 bottom-0 z-40 flex justify-center px-4 pb-[max(14px,env(safe-area-inset-bottom))] pointer-events-none">
-        <nav
+        <motion.nav
+          initial={reduce ? false : { y: 88 }}
+          animate={{ y: 0 }}
+          transition={{ delay: introDelay, type: 'spring', stiffness: 300, damping: 32 }}
           aria-label="Quick navigation"
-          className="pointer-events-auto flex items-stretch gap-0.5 rounded-full border border-white/10 bg-ink/95 px-2 py-2 text-paper backdrop-blur-md shadow-[0_20px_50px_-20px_rgba(0,0,0,0.65)]"
+          className="pointer-events-auto flex items-stretch gap-0.5 rounded-full border border-white/10 bg-night/95 px-2 py-2 text-white backdrop-blur-md shadow-[0_20px_50px_-20px_rgba(0,0,0,0.65)]"
         >
           {DOCK.map(({ label, path, Icon, end }) => (
             <NavLink
               key={path}
               to={path}
               end={end}
-              className={({ isActive }) => cn(dockItem, isActive ? 'text-red' : 'text-paper/70 hover:text-paper')}
+              className={({ isActive }) => cn(dockItem, isActive ? 'text-red' : 'text-white/70 hover:text-white')}
             >
               {({ isActive }) => (
                 <>
@@ -102,23 +121,32 @@ export default function Nav() {
               )}
             </NavLink>
           ))}
-          <button type="button" onClick={() => setOpen(true)} aria-label="Open full menu" className={cn(dockItem, 'text-paper/70 hover:text-paper')}>
+          <button type="button" onClick={() => setOpen(true)} aria-label="Open full menu" className={cn(dockItem, 'text-white/70 hover:text-white')}>
             <Menu className="relative z-10 h-[19px] w-[19px]" strokeWidth={1.7} />
             <span className={dockLabel}>Menu</span>
           </button>
-        </nav>
+        </motion.nav>
       </div>
 
       {/* ===== Mobile right-edge "Enquire Now" tab ===== */}
-      <Link
-        to="/contact"
-        aria-label="Enquire now"
-        className="lg:hidden fixed right-0 top-1/2 z-40 origin-right -translate-y-1/2 rounded-l-xl bg-red text-white shadow-lg shadow-red/30 transition-all duration-200 hover:pr-3.5 hover:shadow-xl hover:shadow-red/40 active:scale-95"
+      {/* Entrance transform lives on a wrapper so the Link's own CSS hover/active transforms survive */}
+      <motion.div
+        className="lg:hidden fixed right-0 top-1/2 z-40"
+        style={{ y: '-50%' }}
+        initial={reduce ? false : { x: '110%' }}
+        animate={{ x: 0 }}
+        transition={{ delay: introDelay + 0.2, duration: 0.5, ease: EASE }}
       >
-        <span className="block px-2.5 py-4 font-mono text-[11px] font-medium uppercase tracking-[0.18em] [writing-mode:vertical-rl] rotate-180">
-          Enquire&nbsp;Now
-        </span>
-      </Link>
+        <Link
+          to="/contact"
+          aria-label="Enquire now"
+          className="block origin-right rounded-l-xl bg-red text-white shadow-lg shadow-red/30 transition-all duration-200 hover:pr-3.5 hover:shadow-xl hover:shadow-red/40 active:scale-95"
+        >
+          <span className="block px-2.5 py-4 font-mono text-[11px] font-medium uppercase tracking-[0.18em] [writing-mode:vertical-rl] rotate-180">
+            Enquire&nbsp;Now
+          </span>
+        </Link>
+      </motion.div>
 
       {/* Drawer rendered through a portal to <body> — the header's backdrop-blur would otherwise
           become the containing block for this fixed overlay and trap it inside the bar. */}
@@ -126,7 +154,7 @@ export default function Nav() {
         <AnimatePresence>
           {open && (
             <motion.div className="fixed inset-0 z-[60] lg:hidden" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} transition={{ duration: 0.25 }}>
-              <div className="absolute inset-0 bg-ink/40 backdrop-blur-sm" onClick={() => setOpen(false)} />
+              <div className="absolute inset-0 bg-night/40 backdrop-blur-sm" onClick={() => setOpen(false)} />
               <motion.div
                 className="absolute right-0 top-0 h-full w-[86%] max-w-sm bg-paper border-l border-line flex flex-col shadow-2xl"
                 initial={{ x: '100%' }} animate={{ x: 0 }} exit={{ x: '100%' }} transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}

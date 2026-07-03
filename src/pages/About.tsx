@@ -14,9 +14,9 @@ const MISSION = [
 
 const MILESTONES = [
   { year: '1973', text: 'Radnik Exports incorporated — the beginning of a family-run business house in fashion.' },
-  { year: '2007', text: 'Project RISE launched — skilling and empowering women across the workforce.' },
-  { year: '2020–23', text: 'Environmental program scales — 12,600+ trees planted, two ponds restored, and 343 KW of solar installed.' },
-  { year: 'Today', text: '15 factories · 5,000+ machines · ~10,000 people · 18M pieces a year for 40+ global brands.' },
+  { year: '2008', text: 'Project RISE begins — women’s skilling that has now trained 21,500+ across the community.' },
+  { year: '2020–23', text: 'Environmental program scales — 12,600+ trees planted, two ponds restored, and 366 KW of solar installed.' },
+  { year: 'Today', text: '15 factories · 5,000+ machines · 15,000 people · 18M pieces a year for 40+ global brands.' },
 ]
 
 const GALLERY = ['/images/about-1.jpg', '/images/infra-5.jpg', '/images/studio-2.jpg', '/images/about-2.jpg']

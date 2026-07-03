@@ -11,10 +11,11 @@ type Props = {
   hover?: boolean
   inView?: boolean // kept for API compatibility
   eager?: boolean
+  reveal?: boolean // set false when a parent choreographs its own unveiling (e.g. the hero slab sweep)
 }
 
 /** Photo with a clip-path wipe reveal (CSS) + optional scroll parallax (framer). Never stays hidden. */
-export default function Img({ src, alt, className, bw = false, parallax = false, hover = true, eager = false }: Props) {
+export default function Img({ src, alt, className, bw = false, parallax = false, hover = true, eager = false, reveal = true }: Props) {
   const { ref, shown } = useReveal<HTMLDivElement>()
   const reduce = useReducedMotion()
   const { scrollYProgress } = useScroll({ target: ref, offset: ['start end', 'end start'] })
@@ -24,16 +25,21 @@ export default function Img({ src, alt, className, bw = false, parallax = false,
   const treat = bw ? 'bw' : 'ph'
   const hov = hover ? (bw ? 'bw-hover' : 'ph-hover') : ''
 
+  // The clip-path reveal lives on an INNER wrapper, never the hover/hit target — a
+  // clip-path on the outer element blocks pointer hit-testing until the wipe settles,
+  // which would swallow a hover started while the image is still revealing.
   return (
-    <div ref={ref} className={cn(treat, hov, 'rv-clip', shown && 'in', className)}>
-      <motion.img
-        src={src}
-        alt={alt}
-        loading={eager ? 'eager' : 'lazy'}
-        decoding="async"
-        style={animate ? { y, willChange: 'transform' } : undefined}
-        className={animate ? '!h-[118%] !-mt-[9%]' : undefined}
-      />
+    <div ref={ref} className={cn(treat, hov, className)}>
+      <div className={cn('h-full w-full', reveal && 'rv-clip', shown && 'in')}>
+        <motion.img
+          src={src}
+          alt={alt}
+          loading={eager ? 'eager' : 'lazy'}
+          decoding="async"
+          style={animate ? { y, willChange: 'transform' } : undefined}
+          className={animate ? '!h-[118%] !-mt-[9%]' : undefined}
+        />
+      </div>
     </div>
   )
 }

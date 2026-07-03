@@ -12,7 +12,7 @@ const CATEGORIES = [
 const VOLUMES = ['Under 50,000 pcs / yr', '50,000 – 250,000 pcs / yr', '250,000 – 1M pcs / yr', '1M+ pcs / yr']
 
 const fieldCls =
-  'w-full bg-white border border-line rounded-md px-4 py-3 text-ink placeholder:text-stone/60 font-sans text-[15px] focus:border-red focus:outline-none focus:ring-1 focus:ring-red transition-colors'
+  'w-full bg-surface border border-line rounded-md px-4 py-3 text-ink placeholder:text-stone/60 font-sans text-[15px] focus:border-red focus:outline-none focus:ring-1 focus:ring-red transition-colors'
 const labelCls = 'block font-mono text-[11px] uppercase tracking-[0.14em] text-stone mb-2'
 
 export default function Contact() {
@@ -52,7 +52,7 @@ export default function Contact() {
           <div className="grid lg:grid-cols-[1.3fr_1fr] gap-12 lg:gap-20">
             <div>
               {sent ? (
-                <div className="border border-line bg-white p-10 text-center">
+                <div className="border border-line bg-surface p-10 text-center">
                   <CheckCircle2 className="h-12 w-12 text-red mx-auto" strokeWidth={1.4} />
                   <h2 className="d-2 mt-6 text-ink">Thank you.</h2>
                   <p className="mt-4 text-stone max-w-md mx-auto leading-relaxed">
@@ -114,7 +114,7 @@ export default function Contact() {
         <iframe
           title="Radnik Exports — Nehru Place, New Delhi"
           src="https://maps.google.com/maps?q=Nehru%20Place%2C%20New%20Delhi%20110048&z=14&output=embed"
-          className="w-full h-[360px] md:h-[440px] grayscale-[0.5] contrast-[1.02]"
+          className="w-full h-[360px] md:h-[440px] grayscale-[0.5] contrast-[1.02] dark:invert-[0.92] dark:hue-rotate-180 dark:grayscale-[0.35]"
           loading="lazy"
           referrerPolicy="no-referrer-when-downgrade"
         />

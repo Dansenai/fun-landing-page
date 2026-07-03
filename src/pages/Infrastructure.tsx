@@ -1,23 +1,23 @@
-import { MapPin } from 'lucide-react'
 import { SOURCING } from '@/data/site'
 import PageHero from '@/components/PageHero'
 import Reveal from '@/components/motion/Reveal'
 import Img from '@/components/motion/Img'
 import SectionHeading from '@/components/SectionHeading'
+import FactoryNetwork from '@/components/FactoryNetwork'
 import CTASection from '@/components/CTASection'
 
 const CAPACITY = [
   { metric: '1M+', label: 'High-fashion garments / month' },
   { metric: '250K+', label: 'Technical products / month' },
   { metric: '500K+', label: 'Sq. ft. of work area' },
-  { metric: '~10,000', label: 'People on the floor' },
+  { metric: '15,000', label: 'People on the floor' },
 ]
 
 const GALLERY = [
-  { src: '/images/infra-1.jpg', alt: 'Fabric spreading and cutting floor', span: 'lg:col-span-2 lg:row-span-2' },
+  { src: '/images/infra-3.jpg', alt: 'Operator at a monitored sewing station', span: 'lg:col-span-2 lg:row-span-2' },
   { src: '/images/infra-2.jpg', alt: 'Sewing and embroidery line' },
-  { src: '/images/infra-3.jpg', alt: 'Operator workstation with monitoring' },
   { src: '/images/infra-4.jpg', alt: 'Garment washing and finishing' },
+  { src: '/images/infra-1.jpg', alt: 'Fabric spreading and cutting floor (Gerber)' },
   { src: '/images/infra-5.jpg', alt: 'Quality station on the production floor' },
 ]
 
@@ -42,14 +42,14 @@ export default function Infrastructure() {
                 <p className="mt-6 text-lg leading-relaxed text-stone text-pretty max-w-lg">
                   Radnik operates 5,000 machines across 15 factories in the Delhi NCR region. Monthly capacity exceeds
                   1 million high-fashion garments plus 250,000 technical products — soft furnishings, accessories and
-                  military gear — with a workforce of nearly 10,000.
+                  military gear — with a workforce of 15,000.
                 </p>
               </Reveal>
             </div>
             <div className="grid grid-cols-2 gap-px bg-line border border-line">
               {CAPACITY.map((c, i) => (
                 <Reveal key={c.label} delay={i * 70}>
-                  <div className="bg-white p-7 h-full"><div className="d-2 text-red leading-none">{c.metric}</div><div className="mt-3 font-mono text-[11px] uppercase tracking-wide text-stone">{c.label}</div></div>
+                  <div className="bg-surface p-7 h-full"><div className="d-2 text-red leading-none">{c.metric}</div><div className="mt-3 font-mono text-[11px] uppercase tracking-wide text-stone">{c.label}</div></div>
                 </Reveal>
               ))}
             </div>
@@ -71,15 +71,11 @@ export default function Infrastructure() {
               </Reveal>
             </div>
             <Reveal delay={120}>
-              <div className="border border-line bg-white p-5 md:p-8">
-                <div className="grid grid-cols-5 gap-2 sm:gap-4">
-                  {Array.from({ length: 15 }).map((_, i) => (
-                    <div key={i} className="aspect-square rounded-sm border border-line flex items-center justify-center group hover:bg-red transition-colors duration-300">
-                      <MapPin className="h-4 w-4 text-red group-hover:text-white transition-colors" strokeWidth={1.6} />
-                    </div>
-                  ))}
+              <div className="border border-line bg-surface p-5 md:p-8">
+                <div className="px-2 py-4 md:px-6 md:py-6">
+                  <FactoryNetwork />
                 </div>
-                <div className="mt-6 flex items-center justify-between font-mono text-[11px] uppercase tracking-wide text-stone"><span>15 production units</span><span>Delhi · Noida · NCR</span></div>
+                <div className="mt-4 flex items-center justify-between font-mono text-[11px] uppercase tracking-wide text-stone border-t border-line pt-5"><span>15 production units</span><span>Delhi · Noida · Gurgaon</span></div>
               </div>
             </Reveal>
           </div>
