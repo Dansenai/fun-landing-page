@@ -10,10 +10,7 @@ const SECTORS = [
   'High-street fashion', 'Premium & designer', 'Kids & infant wear',
   'Active & sportswear', 'Soft home & furnishings', 'Defense & government',
 ]
-// Excludes collab-01 (DÔEN).
-const COLLABS = Array.from({ length: 11 }, (_, i) => i)
-  .filter((i) => i !== 1)
-  .map((i) => `/images/clients/collab-logos/collab-${String(i).padStart(2, '0')}.png`)
+const COLLABS = Array.from({ length: 11 }, (_, i) => `/images/clients/collab-logos/collab-${String(i).padStart(2, '0')}.png`)
 // The other half of the 24-look collection gallery — Home runs the first 12,
 // so no look repeats anywhere on the site.
 const SHOWCASE = [

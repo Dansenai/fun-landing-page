@@ -2,8 +2,8 @@ import Reveal from './motion/Reveal'
 import Marquee from './motion/Marquee'
 
 // Individual brand logos extracted from the Radnik deck (crisp, per-logo).
-// Excludes logo-03 (Hugo Boss), logo-15 (Calvin Klein) and logo-40 (Aritzia).
-const EXCLUDED = new Set([3, 15, 40])
+// Excludes logo-03 (Hugo Boss), logo-15 (Calvin Klein), logo-40 (Aritzia) and logo-42 (Doen).
+const EXCLUDED = new Set([3, 15, 40, 42])
 const LOGOS = Array.from({ length: 46 }, (_, i) => i)
   .filter((i) => !EXCLUDED.has(i))
   .map((i) => `/images/clients/logos/logo-${String(i).padStart(2, '0')}.png`)
