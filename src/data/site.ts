@@ -47,7 +47,6 @@ export const CLIENTS = [
   'Tommy Hilfiger',
   'Benetton',
   'Marks & Spencer',
-  'Calvin Klein',
   'Target',
   'Stella McCartney',
   'Scotch & Soda',
