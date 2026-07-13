@@ -147,7 +147,17 @@ function Hero() {
                 scale: { delay: slabDelay + 0.45, duration: 1.5, ease: EASE },
               }}
             >
-              <Img src="/images/studio-1.jpg" alt="Craft and embroidery detail at Radnik" className="absolute inset-0" parallax inView={false} eager hover={false} reveal={false} />
+              <video
+                className="absolute inset-0 h-full w-full object-cover"
+                src="/videos/embroidery.mp4"
+                poster="/images/studio-1.jpg"
+                autoPlay
+                muted
+                loop
+                playsInline
+                preload="metadata"
+                aria-label="Embroidery being stitched onto fabric at Radnik"
+              />
             </motion.div>
 
             {/* Glass stat chip — a true claim from the hero copy, instrumented-factory style */}
