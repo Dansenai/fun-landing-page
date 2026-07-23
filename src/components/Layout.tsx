@@ -1,7 +1,5 @@
 import { useEffect } from 'react'
 import { Outlet, useLocation } from 'react-router-dom'
-import { MessageCircle } from 'lucide-react'
-import { COMPANY } from '@/data/site'
 import Nav from './Nav'
 import Footer from './Footer'
 import SmoothScroll from './motion/SmoothScroll'
@@ -25,16 +23,6 @@ export default function Layout() {
           <Outlet />
         </main>
         <Footer />
-
-        <a
-          href={`https://wa.me/${COMPANY.whatsapp}`}
-          target="_blank"
-          rel="noreferrer"
-          aria-label="Chat on WhatsApp"
-          className="fixed bottom-5 right-5 z-40 hidden lg:inline-flex items-center justify-center h-12 w-12 rounded-full bg-red text-white shadow-lg shadow-red/30 transition-all duration-200 hover:scale-110 hover:shadow-xl hover:shadow-red/40 active:scale-95"
-        >
-          <MessageCircle className="h-5 w-5" />
-        </a>
       </div>
     </SmoothScroll>
   )

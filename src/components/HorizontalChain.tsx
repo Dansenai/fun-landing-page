@@ -12,8 +12,17 @@ function Card({ step, className }: { step: Step; className?: string }) {
         <span className="font-mono text-sm text-red tracking-widest">{step.n}</span>
         <span className="h-2 w-2 rounded-full bg-red" />
       </div>
-      <h3 className="d-2 mt-8 text-white">{step.title}</h3>
-      <p className="mt-5 text-white/55 leading-relaxed max-w-sm">{step.body}</p>
+      {/* Height is viewport-relative so header + card + progress bar still fit
+          the 100svh pinned section on short laptop screens. */}
+      <img
+        src={step.img}
+        alt={step.alt}
+        loading="lazy"
+        decoding="async"
+        className="mt-6 h-[30svh] lg:h-[26svh] w-full object-cover"
+      />
+      <h3 className="d-2 mt-6 text-white">{step.title}</h3>
+      <p className="mt-4 text-white/55 leading-relaxed max-w-sm">{step.body}</p>
     </div>
   )
 }

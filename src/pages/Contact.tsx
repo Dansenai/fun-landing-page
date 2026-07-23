@@ -1,6 +1,6 @@
 import { useState, type FormEvent } from 'react'
-import { Mail, Phone, MessageCircle, MapPin, CheckCircle2, ArrowRight } from 'lucide-react'
-import { COMPANY } from '@/data/site'
+import { Mail, Phone, MapPin, CheckCircle2, ArrowRight } from 'lucide-react'
+import { COMPANY, INQUIRY_ENDPOINT } from '@/data/site'
 import Reveal from '@/components/motion/Reveal'
 import TextReveal from '@/components/motion/TextReveal'
 import { LinkedinIcon } from '@/components/icons'
@@ -15,13 +15,16 @@ const fieldCls =
   'w-full bg-surface border border-line rounded-md px-4 py-3 text-ink placeholder:text-stone/60 font-sans text-[15px] focus:border-red focus:outline-none focus:ring-1 focus:ring-red transition-colors'
 const labelCls = 'block font-mono text-[11px] uppercase tracking-[0.14em] text-stone mb-2'
 
-export default function Contact() {
-  const [sent, setSent] = useState(false)
+type Status = 'idle' | 'sending' | 'sent' | 'error'
 
-  function handleSubmit(e: FormEvent<HTMLFormElement>) {
-    e.preventDefault()
-    const f = new FormData(e.currentTarget)
-    const get = (k: string) => String(f.get(k) ?? '').trim()
+export default function Contact() {
+  const [status, setStatus] = useState<Status>('idle')
+  const sent = status === 'sent'
+
+  /** Fallback for when no endpoint is configured: hand the browser a pre-filled
+   *  draft. Unreliable (many visitors have no desktop mail client), so it is only
+   *  used if INQUIRY_ENDPOINT is unset. */
+  function mailtoFallback(get: (k: string) => string) {
     const subject = `Sourcing inquiry — ${get('company') || get('name')}`
     const body = [
       `Name: ${get('name')}`, `Company: ${get('company')}`, `Email: ${get('email')}`,
@@ -29,7 +32,38 @@ export default function Contact() {
       `Estimated annual volume: ${get('volume')}`, '', 'Message:', get('message'),
     ].join('\n')
     window.location.href = `mailto:${COMPANY.email}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`
-    setSent(true)
+  }
+
+  async function handleSubmit(e: FormEvent<HTMLFormElement>) {
+    e.preventDefault()
+    const f = new FormData(e.currentTarget)
+    const get = (k: string) => String(f.get(k) ?? '').trim()
+
+    if (!INQUIRY_ENDPOINT) {
+      mailtoFallback(get)
+      setStatus('sent')
+      return
+    }
+
+    setStatus('sending')
+    try {
+      // text/plain keeps this a CORS "simple request" — Apps Script web apps
+      // don't answer preflight OPTIONS, so application/json would fail.
+      const res = await fetch(INQUIRY_ENDPOINT, {
+        method: 'POST',
+        headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+        body: JSON.stringify({
+          name: get('name'), company: get('company'), email: get('email'),
+          brand: get('brand'), category: get('category'), volume: get('volume'),
+          message: get('message'), website: get('website'), // honeypot
+        }),
+      })
+      const data = await res.json().catch(() => null)
+      if (!res.ok || (data && data.ok === false)) throw new Error('submission rejected')
+      setStatus('sent')
+    } catch {
+      setStatus('error')
+    }
   }
 
   return (
@@ -56,13 +90,15 @@ export default function Contact() {
                   <CheckCircle2 className="h-12 w-12 text-red mx-auto" strokeWidth={1.4} />
                   <h2 className="d-2 mt-6 text-ink">Thank you.</h2>
                   <p className="mt-4 text-stone max-w-md mx-auto leading-relaxed">
-                    Your email draft is ready in your mail client. Send it through and our sourcing team will respond
-                    shortly. Prefer to talk now? Call <a href={`tel:${COMPANY.phoneHref}`} className="text-red link-underline">{COMPANY.phone}</a>.
+                    {INQUIRY_ENDPOINT
+                      ? 'We have your inquiry and our sourcing team will respond shortly.'
+                      : 'Your email draft is ready in your mail client — send it through and our sourcing team will respond shortly.'}{' '}
+                    Prefer to talk now? Call <a href={`tel:${COMPANY.phoneHref}`} className="text-red link-underline">{COMPANY.phone}</a>.
                   </p>
-                  <button type="button" onClick={() => setSent(false)} className="btn btn-outline mt-8">Submit another inquiry</button>
+                  <button type="button" onClick={() => setStatus('idle')} className="btn btn-outline mt-8">Submit another inquiry</button>
                 </div>
               ) : (
-                <form onSubmit={handleSubmit} className="space-y-6">
+                <form onSubmit={handleSubmit} className="space-y-6 relative">
                   <div className="grid sm:grid-cols-2 gap-6">
                     <div><label className={labelCls} htmlFor="name">Name *</label><input id="name" name="name" required className={fieldCls} placeholder="Your full name" /></div>
                     <div><label className={labelCls} htmlFor="company">Company *</label><input id="company" name="company" required className={fieldCls} placeholder="Company name" /></div>
@@ -85,8 +121,28 @@ export default function Contact() {
                     <label className={labelCls} htmlFor="message">Message</label>
                     <textarea id="message" name="message" rows={5} className={fieldCls} placeholder="Tell us about your program, timelines and any compliance requirements." />
                   </div>
-                  <button type="submit" className="btn btn-red">Send inquiry <ArrowRight className="h-4 w-4" /></button>
-                  <p className="font-mono text-[11px] text-stone tracking-wide">Opens a pre-filled email to {COMPANY.email}.</p>
+                  {/* Honeypot — hidden from people, irresistible to bots. Not `display:none`,
+                      which some bots detect; pushed off-screen instead. */}
+                  <div className="absolute left-[-9999px] top-0" aria-hidden="true">
+                    <label htmlFor="website">Website</label>
+                    <input id="website" name="website" type="text" tabIndex={-1} autoComplete="off" />
+                  </div>
+
+                  <button type="submit" disabled={status === 'sending'} className="btn btn-red disabled:opacity-60 disabled:cursor-not-allowed">
+                    {status === 'sending' ? 'Sending…' : 'Send inquiry'} <ArrowRight className="h-4 w-4" />
+                  </button>
+
+                  {status === 'error' && (
+                    <p role="alert" className="text-[13px] text-red leading-relaxed">
+                      Something went wrong sending your inquiry. Please email{' '}
+                      <a href={`mailto:${COMPANY.email}`} className="link-underline">{COMPANY.email}</a> or call{' '}
+                      <a href={`tel:${COMPANY.phoneHref}`} className="link-underline">{COMPANY.phone}</a> directly.
+                    </p>
+                  )}
+
+                  {!INQUIRY_ENDPOINT && (
+                    <p className="font-mono text-[11px] text-stone tracking-wide">Opens a pre-filled email to {COMPANY.email}.</p>
+                  )}
                 </form>
               )}
             </div>
@@ -102,7 +158,6 @@ export default function Contact() {
               <div className="space-y-4">
                 <a href={`mailto:${COMPANY.email}`} className="flex items-center gap-3 py-2 -my-2 text-ink hover:text-red transition-colors"><Mail className="h-4 w-4 text-red" /> {COMPANY.email}</a>
                 <a href={`tel:${COMPANY.phoneHref}`} className="flex items-center gap-3 py-2 -my-2 text-ink hover:text-red transition-colors"><Phone className="h-4 w-4 text-red" /> {COMPANY.phone}</a>
-                <a href={`https://wa.me/${COMPANY.whatsapp}`} target="_blank" rel="noreferrer" className="flex items-center gap-3 py-2 -my-2 text-ink hover:text-red transition-colors"><MessageCircle className="h-4 w-4 text-red" /> WhatsApp</a>
                 <a href={COMPANY.linkedin} target="_blank" rel="noreferrer" className="flex items-center gap-3 py-2 -my-2 text-ink hover:text-red transition-colors"><LinkedinIcon className="h-4 w-4 text-red" /> LinkedIn</a>
               </div>
             </div>

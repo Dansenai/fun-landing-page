@@ -23,6 +23,12 @@ export const COMPANY = {
   ],
 }
 
+/** Google Apps Script web-app URL that writes inquiries to the Sheet.
+ *  Setup instructions: docs/inquiry-sheet-apps-script.gs
+ *  Public by design (it only accepts writes) — safe to ship in the bundle.
+ *  Empty string = fall back to opening a pre-filled mailto: draft. */
+export const INQUIRY_ENDPOINT = ''
+
 export const NAV = [
   { label: 'About', path: '/about' },
   { label: 'Capabilities', path: '/capabilities' },
@@ -68,12 +74,12 @@ export const CAPABILITIES = [
 ]
 
 export const VALUE_CHAIN = [
-  { n: '01', title: 'Design & trend', body: 'In-house studio on WGSN with design consultants in Europe.' },
-  { n: '02', title: '3D virtual sampling', body: 'CLO, Browzwear & Optitex — weeks to hours.' },
-  { n: '03', title: 'Responsible sourcing', body: 'Tier-2 traceability, GOTS / OCS / GRS materials.' },
-  { n: '04', title: 'Cut, make & finish', body: '5,000 machines across 15 Delhi-NCR factories.' },
-  { n: '05', title: 'In-house QC lab', body: 'Buyer-accredited testing on 16+ parameters.' },
-  { n: '06', title: 'Export', body: 'Self-reliant factories cleared to ship for buyers.' },
+  { n: '01', title: 'Design & trend', body: 'In-house studio on WGSN with design consultants in Europe.', img: '/images/chain-01.jpg', alt: 'Designers pinning tear-sheets and comparing lace swatches at a moodboard wall in the design studio' },
+  { n: '02', title: '3D virtual sampling', body: 'CLO, Browzwear & Optitex — weeks to hours.', img: '/images/chain-02.jpg', alt: 'Designer matching a navy fabric swatch against a 3D-simulated garment on screen' },
+  { n: '03', title: 'Responsible sourcing', body: 'Tier-2 traceability, GOTS / OCS / GRS materials.', img: '/images/chain-03.jpg', alt: 'Storekeeper checking the weave of a greige cotton roll in the fabric store' },
+  { n: '04', title: 'Cut, make & finish', body: '5,000 machines across 15 Delhi-NCR factories.', img: '/images/chain-04.jpg', alt: 'Operators at a row of lockstitch machines on the sewing floor' },
+  { n: '05', title: 'In-house QC lab', body: 'Buyer-accredited testing on 16+ parameters.', img: '/images/chain-05.jpg', alt: 'Lab technician loading a fabric strip into a tensile testing machine' },
+  { n: '06', title: 'Export', body: 'Self-reliant factories cleared to ship for buyers.', img: '/images/chain-06.jpg', alt: 'Export cartons being loaded into a container at the dispatch bay' },
 ]
 
 export const CERTS = {
