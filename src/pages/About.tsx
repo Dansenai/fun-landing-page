@@ -42,14 +42,14 @@ export default function About() {
                 <div className="mt-7 space-y-5 text-lg leading-relaxed text-stone text-pretty max-w-xl">
                   <p>
                     Incorporated in 1973, Radnik has grown into a leading manufacturer of fashion garments, active
-                    gear, sportswear, uniforms, accessories, and security and life-survival products — for
-                    multinational brands including H&amp;M, Tommy Hilfiger, Benetton and Marks &amp; Spencer.
+                    gear, sportswear, uniforms, accessories, and security and life-survival products — for some of
+                    the world's leading multinational fashion brands.
                   </p>
                   <p>
                     Five decades on, we remain a family-run business house: long-term by instinct, exacting by
                     standard. Our own design work even birthed <span className="text-red">“Barefoot Clothing,”</span> a
-                    label created with TK Maxx in the UK — proof that Radnik is a design partner, not only a
-                    production line.
+                    label created with a leading UK high-street retailer — proof that Radnik is a design partner,
+                    not only a production line.
                   </p>
                 </div>
               </Reveal>

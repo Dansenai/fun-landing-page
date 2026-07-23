@@ -33,7 +33,6 @@ export const NAV = [
   { label: 'About', path: '/about' },
   { label: 'Capabilities', path: '/capabilities' },
   { label: 'Infrastructure', path: '/infrastructure' },
-  { label: 'Clients', path: '/clients' },
   { label: 'Sustainability', path: '/sustainability' },
   { label: 'Contact', path: '/contact' },
 ]
@@ -46,20 +45,6 @@ export const STATS = [
   { value: 15000, suffix: '', label: 'People', prefix: '' },
   { value: 1, suffix: 'M+', label: 'Garments / month', prefix: '' },
   { value: 18, suffix: 'M', label: 'Pieces / year', prefix: '' },
-]
-
-export const CLIENTS = [
-  'H&M',
-  'Tommy Hilfiger',
-  'Benetton',
-  'Marks & Spencer',
-  'Target',
-  'Stella McCartney',
-  'Scotch & Soda',
-  '& Other Stories',
-  'Tom Tailor',
-  'Lindex',
-  'TK Maxx',
 ]
 
 export const CAPABILITIES = [
@@ -114,8 +99,8 @@ export const SOURCING = ['China', 'Hong Kong', 'Surat', 'Salem', 'Erode']
 export const ESG_PEOPLE: { name: string; since: string; body: string; full?: string }[] = [
   { name: 'Project RISE', full: 'Radnik Initiative for Social Empowerment', since: 'since 2008', body: '21,500+ women trained in garment skills at our village centres — 69% placed into work at Radnik and nearby garment houses.' },
   { name: 'Project Bhagta Bharat', since: 'Corporate NGO', body: '~3,500 underprivileged children reached with life-skill education.' },
-  { name: 'Project HER', since: 'with Swasti & Bestseller', body: 'Health and hygiene programs for our women workforce.' },
-  { name: 'Project SWAR', since: 'Lindex-certified', body: 'Sustainability of Water & Resources — Radnik was the first supplier certified.' },
+  { name: 'Project HER', since: 'with Swasti', body: 'Health and hygiene programs for our women workforce.' },
+  { name: 'Project SWAR', since: 'Buyer-certified', body: 'Sustainability of Water & Resources — Radnik was the first supplier certified.' },
   { name: 'Project FLA', since: 'Fair Labour', body: 'Capacity building at the home-workers’ village centre.' },
   { name: 'Project PENSION', since: 'In-house', body: 'Pension and savings access for low-income in-house workers.' },
 ]

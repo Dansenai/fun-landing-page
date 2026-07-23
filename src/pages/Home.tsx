@@ -15,7 +15,6 @@ import Magnetic from '@/components/motion/Magnetic'
 import CountUp from '@/components/CountUp'
 import SectionHeading from '@/components/SectionHeading'
 import CTASection from '@/components/CTASection'
-import ClientLogoWall from '@/components/ClientLogoWall'
 import TaglineBand from '@/components/TaglineBand'
 import HorizontalChain from '@/components/HorizontalChain'
 
@@ -208,17 +207,16 @@ export default function Home() {
       <div className="relative z-10 bg-paper">
       <TaglineBand />
 
-      {/* ===== TRUST RIBBON (client logos) ===== */}
+      {/* ===== TRUST RIBBON ===== */}
+      {/* Client names are deliberately not published — owner's call: the list is
+          shared on request, not exposed on the site. Keep this section nameless. */}
       <section className="bg-paper border-y border-line py-12 md:py-16 overflow-hidden">
-        <div className="edge flex flex-wrap items-end justify-between gap-4 mb-9 md:mb-11">
+        <div className="edge flex flex-wrap items-end justify-between gap-4">
           <Reveal><p className="eyebrow text-stone">Trusted by the world's leading brands</p></Reveal>
           <Reveal delay={80}>
-            <Link to="/clients" className="inline-flex items-center gap-2 font-mono text-[12px] uppercase tracking-[0.16em] text-red hover:gap-3 transition-all">
-              See all clients <ArrowUpRight className="h-4 w-4" />
-            </Link>
+            <p className="font-mono text-[12px] uppercase tracking-[0.16em] text-stone">Client references shared on request</p>
           </Reveal>
         </div>
-        <Reveal delay={120}><ClientLogoWall variant="marquee" /></Reveal>
       </section>
 
       {/* ===== PROOF BAR ===== */}

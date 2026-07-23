@@ -4,7 +4,6 @@ import Home from '@/pages/Home'
 import About from '@/pages/About'
 import Capabilities from '@/pages/Capabilities'
 import Infrastructure from '@/pages/Infrastructure'
-import Clients from '@/pages/Clients'
 import Sustainability from '@/pages/Sustainability'
 import Contact from '@/pages/Contact'
 import NotFound from '@/pages/NotFound'
@@ -18,7 +17,6 @@ export default function App() {
           <Route path="/about" element={<About />} />
           <Route path="/capabilities" element={<Capabilities />} />
           <Route path="/infrastructure" element={<Infrastructure />} />
-          <Route path="/clients" element={<Clients />} />
           <Route path="/sustainability" element={<Sustainability />} />
           <Route path="/contact" element={<Contact />} />
           <Route path="*" element={<NotFound />} />

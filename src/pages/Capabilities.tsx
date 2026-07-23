@@ -7,7 +7,6 @@ import Img from '@/components/motion/Img'
 import SectionHeading from '@/components/SectionHeading'
 import CTASection from '@/components/CTASection'
 
-const QUALITY_CLIENTS = ['H&M', 'Target', 'Tommy Hilfiger', 'Benetton', '& Other Stories', 'Stella McCartney']
 
 export default function Capabilities() {
   return (
@@ -78,15 +77,12 @@ export default function Capabilities() {
               <SectionHeading eyebrow="Quality & in-house labs" title="Buyer-accredited. Self-reliant." size="d-1" />
               <Reveal delay={150}>
                 <p className="mt-6 text-lg leading-relaxed text-stone text-pretty max-w-lg">
-                  Our factories are authorized to clear shipments for clients including H&amp;M, Target, Tommy Hilfiger
-                  and Benetton. Independent in-house labs — accredited by buyers — run a full battery of physical tests.
+                  Our factories are authorized to clear shipments directly for the world's leading high-street and
+                  premium brands. Independent in-house labs — accredited by buyers — run a full battery of physical tests.
                 </p>
               </Reveal>
               <Reveal delay={180}>
-                <div className="mt-8">
-                  <div className="eyebrow text-stone mb-3">Cleared to ship for</div>
-                  <div className="flex flex-wrap gap-x-5 gap-y-2">{QUALITY_CLIENTS.map((c) => <span key={c} className="d-3 text-ink/65">{c}</span>)}</div>
-                </div>
+                <p className="mt-8 font-mono text-[12px] uppercase tracking-[0.16em] text-stone">Client references shared on request</p>
               </Reveal>
             </div>
             <Reveal delay={150}>
