@@ -207,14 +207,14 @@ export default function Home() {
       <div className="relative z-10 bg-paper">
       <TaglineBand />
 
-      {/* ===== TRUST RIBBON ===== */}
+      {/* ===== TRUST LINE ===== */}
       {/* Client names are deliberately not published — owner's call: the list is
-          shared on request, not exposed on the site. Keep this section nameless. */}
-      <section className="bg-paper border-y border-line py-12 md:py-16 overflow-hidden">
-        <div className="edge flex flex-wrap items-end justify-between gap-4">
+          shared on request, not exposed on the site. A slim one-line band. */}
+      <section className="bg-paper border-y border-line py-5 md:py-6">
+        <div className="edge flex flex-wrap items-baseline justify-between gap-x-8 gap-y-2">
           <Reveal><p className="eyebrow text-stone">Trusted by the world's leading brands</p></Reveal>
           <Reveal delay={80}>
-            <p className="font-mono text-[12px] uppercase tracking-[0.16em] text-stone">Client references shared on request</p>
+            <p className="font-mono text-[11px] uppercase tracking-[0.16em] text-stone/70">Client references shared on request</p>
           </Reveal>
         </div>
       </section>
