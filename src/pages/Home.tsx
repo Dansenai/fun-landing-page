@@ -4,7 +4,7 @@ import { motion, useScroll, useTransform, useReducedMotion } from 'framer-motion
 import {
   ArrowRight, ArrowDown, ArrowUpRight, Award,
   Shirt, Activity, Layers, Sofa, Users, Shield, Sparkles, LifeBuoy,
-  Tent, ShoppingBag, PawPrint,
+  Tent, ShoppingBag, PawPrint, Volume2, VolumeX,
 } from 'lucide-react'
 import { STATS, CAPABILITIES, ESG_PLANET } from '@/data/site'
 import { cn } from '@/lib/utils'
@@ -21,6 +21,7 @@ import HorizontalChain from '@/components/HorizontalChain'
 
 const CAP_ICONS = [Shirt, Activity, Layers, Sofa, Users, Shield, Sparkles, LifeBuoy, Tent, ShoppingBag, PawPrint]
 const EASE = [0.16, 1, 0.3, 1] as const
+const HERO_VOLUME = 0.35 // hero video audio — low/medium so it's never jarring
 const SNAP = [0.76, 0, 0.24, 1] as const // hard in-out — drafted lines & the slab sweep
 // One half of the 24-look collection gallery (radnikexports.com) — the other half runs
 // on the Clients page, so no look repeats anywhere on the site.
@@ -48,6 +49,60 @@ const COLLECTION = [
 function Hero() {
   const reduce = useReducedMotion()
   const ref = useRef<HTMLElement>(null)
+  const videoRef = useRef<HTMLVideoElement>(null)
+  const [soundOn, setSoundOn] = useState(false)
+
+  // Autoplay must start muted (browser policy). A deliberate tap is a user
+  // gesture, so unmuting + play() here is always permitted. React treats `muted`
+  // as initial-only, so drive it through the ref.
+  function toggleSound() {
+    const v = videoRef.current
+    if (!v) return
+    const next = !soundOn
+    v.muted = !next
+    v.volume = HERO_VOLUME // keep it low/medium — never jarring
+    userMutedRef.current = !next // remember a deliberate mute so auto-unmute won't fight it
+    if (next) v.play().catch(() => {})
+    setSoundOn(next)
+  }
+
+  // Owner wants sound on as early as possible. Two separate goals, kept from
+  // fighting each other:
+  //  1. Muted autoplay must ALWAYS run — never let the sound attempt break it.
+  //  2. Unmute at the earliest moment the browser allows: optimistically (works
+  //     for returning visitors with media-engagement standing), else on the
+  //     first real gesture. Scroll/mousemove don't grant activation — listen
+  //     for pointer/touch/key.
+  const userMutedRef = useRef(false)
+  useEffect(() => {
+    const v = videoRef.current
+    if (!v) return
+
+    // Guarantee muted autoplay. If any unmute attempt is blocked, we fall back
+    // to this so the video keeps playing instead of freezing.
+    const kickMuted = () => { v.muted = true; v.volume = HERO_VOLUME; v.play().catch(() => {}) }
+    kickMuted()
+    if (reduce) return // don't push audio onto reduced-motion users
+
+    let done = false
+    const cleanup = () => {
+      window.removeEventListener('pointerdown', onGesture)
+      window.removeEventListener('keydown', onGesture)
+      window.removeEventListener('touchstart', onGesture)
+    }
+    const tryUnmute = () => {
+      if (done || userMutedRef.current) return
+      v.muted = false
+      v.volume = HERO_VOLUME
+      v.play().then(() => { done = true; setSoundOn(true); cleanup() }).catch(kickMuted)
+    }
+    function onGesture() { tryUnmute() }
+    tryUnmute() // optimistic — returning visitors get sound immediately
+    window.addEventListener('pointerdown', onGesture)
+    window.addEventListener('keydown', onGesture)
+    window.addEventListener('touchstart', onGesture)
+    return cleanup
+  }, [reduce])
   // Kept live: the exit choreography (`exit`) and scrub distances (`vh`) must track
   // the lg:sticky pin, which is a live CSS media query — freezing them at mount
   // desyncs the two when the viewport crosses 1024px or rotates.
@@ -148,17 +203,31 @@ function Hero() {
               }}
             >
               <video
+                ref={videoRef}
                 className="absolute inset-0 h-full w-full object-cover"
-                src="/videos/embroidery.mp4"
-                poster="/images/studio-1.jpg"
+                src="/videos/industry-4-0.mp4"
+                poster="/images/studio-3.jpg"
                 autoPlay
                 muted
                 loop
                 playsInline
                 preload="metadata"
-                aria-label="Embroidery being stitched onto fabric at Radnik"
+                aria-label="Radnik production line — real-time monitoring across the factory floor"
               />
             </motion.div>
+
+            {/* Sound toggle — the hero clip carries a stereo track; autoplay is muted by policy */}
+            <button
+              type="button"
+              onClick={toggleSound}
+              aria-pressed={soundOn}
+              aria-label={soundOn ? 'Mute video' : 'Play video with sound'}
+              className="absolute bottom-6 right-6 z-10 inline-flex h-11 w-11 items-center justify-center rounded-full
+                         border border-white/25 bg-black/45 text-white backdrop-blur-sm transition-all duration-200
+                         hover:scale-105 hover:bg-black/65 active:scale-95"
+            >
+              {soundOn ? <Volume2 className="h-5 w-5" /> : <VolumeX className="h-5 w-5" />}
+            </button>
 
             {/* Glass stat chip — a true claim from the hero copy, instrumented-factory style */}
             <motion.div
