@@ -119,7 +119,7 @@ function Hero() {
             <motion.p initial={reduce ? false : { opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.7, delay: 0.7, ease: EASE }}
               className="mt-8 max-w-xl text-lg md:text-xl leading-relaxed text-stone text-pretty">
               For five decades, Radnik Exports has manufactured for the world's most demanding apparel brands and
-              defense forces — over a million garments a month, with full traceability from design to dispatch.
+              armed forces — over a million garments a month, with full traceability from design to dispatch.
             </motion.p>
           </motion.div>
 
@@ -361,8 +361,8 @@ export default function Home() {
             <Reveal delay={150}>
               <p className="text-lg md:text-xl leading-relaxed text-white/85 text-pretty">
                 Beyond global fashion brands, Radnik manufactures uniforms, security and life-survival products for
-                India's Military and Paramilitary forces — work that demands a level of precision, compliance and
-                confidentiality few apparel houses can sustain.
+                military and paramilitary forces across the world — work that demands a level of precision, compliance
+                and confidentiality few apparel houses can sustain.
               </p>
             </Reveal>
           </div>

@@ -14,7 +14,7 @@ export const COMPANY = {
   offices: [
     {
       label: 'Registered Address',
-      lines: ['Osian Building, 12/412', 'Nehru Place, South Delhi', 'New Delhi 110048'],
+      lines: ['412 Osian Building', 'Nehru Place', 'New Delhi 110019'],
     },
     {
       label: 'Planning Centre',
@@ -56,6 +56,9 @@ export const CAPABILITIES = [
   { title: 'Defense & technical textiles', note: 'DGQA-certified' },
   { title: 'Accessories', note: 'Trims & fashion accessories' },
   { title: 'Survival & security gear', note: 'Life-survival products' },
+  { title: 'Outdoor products', note: 'Technical outdoor & camping gear' },
+  { title: 'Fashion bags & accessories', note: 'Bags, totes & carry' },
+  { title: 'Pet products', note: 'Pet apparel & accessories' },
 ]
 
 export const VALUE_CHAIN = [
@@ -211,7 +214,7 @@ export type Facility = {
 }
 
 export const FACILITIES: Facility[] = [
-  { id: 'hq', name: 'Corporate Headquarters', kind: 'HQ', hub: 'Delhi', address: 'Osian Building, 12 Nehru Place, New Delhi 110019', coords: [77.2512, 28.5491] },
+  { id: 'hq', name: 'Corporate Headquarters', kind: 'HQ', hub: 'Delhi', address: '412 Osian Building, Nehru Place, New Delhi 110019', coords: [77.2512, 28.5491] },
   { id: 'okhla', name: 'Planning Centre & Showroom', kind: 'Planning', hub: 'Delhi', address: 'B-22, Okhla Industrial Area Phase II, New Delhi 110020', coords: [77.2731, 28.5352] },
   { id: 'sec63', name: 'Noida Sector 63 Unit', kind: 'Unit', hub: 'Noida', address: 'D-62, Sector 63, Noida 201301', coords: [77.3908, 28.6231] },
   { id: 'sec59', name: 'Noida Sector 59 Unit', kind: 'Unit', hub: 'Noida', address: 'E-2, Sector 59, Noida 201301', coords: [77.3719, 28.6089] },

@@ -27,7 +27,7 @@ export default function About() {
       <PageHero
         eyebrow="Established 1973"
         title="Fifty years of building garments the world wears."
-        intro="One of India's elite, family-run business houses in the fashion industry — manufacturing for multinational brands and India's defense forces alike."
+        intro="One of India's leading family-run business houses in the fashion industry — manufacturing for multinational brands and for military and paramilitary forces across the world."
         image="/images/about-2.jpg"
         imageAlt="A Radnik Exports facility in the Delhi NCR region"
       />

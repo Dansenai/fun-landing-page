@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from 'react'
 import { AnimatePresence, motion, useReducedMotion, useScroll, useTransform } from 'framer-motion'
+import { Volume2, VolumeX } from 'lucide-react'
 import { cn } from '@/lib/utils'
 
 /**
@@ -29,6 +30,7 @@ export default function TaglineBand() {
   const reduce = useReducedMotion()
   const [active, setActive] = useState(0)
   const videoRef = useRef<HTMLVideoElement>(null)
+  const [soundOn, setSoundOn] = useState(false)
   const cardRef = useRef<HTMLDivElement>(null)
   const videoPanelRef = useRef<HTMLDivElement>(null)
   const [isLg] = useState(() => window.matchMedia('(min-width: 1024px)').matches)
@@ -66,6 +68,18 @@ export default function TaglineBand() {
     io.observe(v)
     return () => io.disconnect()
   }, [reduce])
+
+  // Sound toggle. Autoplay must start muted (browser policy); a deliberate tap
+  // is a user gesture, so unmuting + play() here is always allowed. React treats
+  // the `muted` prop as initial-only, so drive the element via the ref.
+  function toggleSound() {
+    const v = videoRef.current
+    if (!v) return
+    const next = !soundOn
+    v.muted = !next
+    if (next) v.play().catch(() => {})
+    setSoundOn(next)
+  }
 
   const quote = QUOTES[active]
   const renderQuote = () =>
@@ -161,6 +175,18 @@ export default function TaglineBand() {
                 className="pointer-events-none absolute inset-x-0 top-0 h-14 bg-gradient-to-b from-charcoal/80 to-transparent
                            lg:inset-y-0 lg:left-0 lg:right-auto lg:h-auto lg:w-16 lg:bg-gradient-to-r"
               />
+              {/* Sound toggle — the clip carries a stereo track; autoplay is muted by policy */}
+              <button
+                type="button"
+                onClick={toggleSound}
+                aria-pressed={soundOn}
+                aria-label={soundOn ? 'Mute video' : 'Play video with sound'}
+                className="absolute bottom-4 right-4 z-10 inline-flex h-11 w-11 items-center justify-center rounded-full
+                           border border-white/25 bg-black/45 text-white backdrop-blur-sm transition-all duration-200
+                           hover:scale-105 hover:bg-black/65 active:scale-95"
+              >
+                {soundOn ? <Volume2 className="h-5 w-5" /> : <VolumeX className="h-5 w-5" />}
+              </button>
             </div>
           </div>
 

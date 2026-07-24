@@ -168,7 +168,7 @@ export default function Contact() {
       <section className="bg-paper border-t border-line">
         <iframe
           title="Radnik Exports — Nehru Place, New Delhi"
-          src="https://maps.google.com/maps?q=Nehru%20Place%2C%20New%20Delhi%20110048&z=14&output=embed"
+          src="https://maps.google.com/maps?q=Nehru%20Place%2C%20New%20Delhi%20110019&z=14&output=embed"
           className="w-full h-[360px] md:h-[440px] grayscale-[0.5] contrast-[1.02] dark:invert-[0.92] dark:hue-rotate-180 dark:grayscale-[0.35]"
           loading="lazy"
           referrerPolicy="no-referrer-when-downgrade"

@@ -32,7 +32,7 @@ export default function Footer() {
           <Logo />
           <p className="mt-5 max-w-xs text-sm text-stone leading-relaxed">
             A 50-year apparel & technical-textile manufacturing house in Delhi NCR — building for the world's
-            leading brands and India's defense forces.
+            leading brands and for armed forces across the world.
           </p>
           <a href={COMPANY.linkedin} target="_blank" rel="noreferrer" className="mt-6 inline-flex items-center gap-2 text-sm text-ink hover:text-red link-underline">
             <LinkedinIcon className="h-4 w-4" /> LinkedIn
