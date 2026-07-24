@@ -4,6 +4,7 @@ import { motion, useScroll, useTransform, useReducedMotion } from 'framer-motion
 import {
   ArrowRight, ArrowDown, ArrowUpRight, Award,
   Shirt, Activity, Layers, Sofa, Users, Shield, Sparkles, LifeBuoy,
+  Tent, ShoppingBag, PawPrint,
 } from 'lucide-react'
 import { STATS, CAPABILITIES, ESG_PLANET } from '@/data/site'
 import { cn } from '@/lib/utils'
@@ -18,7 +19,7 @@ import CTASection from '@/components/CTASection'
 import TaglineBand from '@/components/TaglineBand'
 import HorizontalChain from '@/components/HorizontalChain'
 
-const CAP_ICONS = [Shirt, Activity, Layers, Sofa, Users, Shield, Sparkles, LifeBuoy]
+const CAP_ICONS = [Shirt, Activity, Layers, Sofa, Users, Shield, Sparkles, LifeBuoy, Tent, ShoppingBag, PawPrint]
 const EASE = [0.16, 1, 0.3, 1] as const
 const SNAP = [0.76, 0, 0.24, 1] as const // hard in-out — drafted lines & the slab sweep
 // One half of the 24-look collection gallery (radnikexports.com) — the other half runs
@@ -253,7 +254,7 @@ export default function Home() {
           </div>
           <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-px bg-line border border-line">
             {CAPABILITIES.map((c, i) => {
-              const Icon = CAP_ICONS[i]
+              const Icon = CAP_ICONS[i] ?? Sparkles // guard: never render undefined if the arrays desync
               return (
                 <Reveal key={c.title} delay={(i % 4) * 70}>
                   <div className="group bg-paper hover:bg-night transition-colors duration-500 p-7 h-full min-h-[200px] flex flex-col">
