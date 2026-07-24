@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from 'react'
 import { Link } from 'react-router-dom'
-import { motion, useScroll, useTransform, useReducedMotion } from 'framer-motion'
+import { motion, useScroll, useTransform, useMotionTemplate, useReducedMotion } from 'framer-motion'
 import {
   ArrowRight, ArrowDown, ArrowUpRight, Award,
   Shirt, Activity, Layers, Sofa, Users, Shield, Sparkles, LifeBuoy,
@@ -103,33 +103,45 @@ function Hero() {
     window.addEventListener('touchstart', onGesture)
     return cleanup
   }, [reduce])
-  // Kept live: the exit choreography (`exit`) and scrub distances (`vh`) must track
-  // the lg:sticky pin, which is a live CSS media query — freezing them at mount
-  // desyncs the two when the viewport crosses 1024px or rotates.
+  // Kept live: the exit choreography (`exit`) tracks the lg pin, which is a live
+  // CSS media query — freezing it at mount desyncs when the viewport crosses
+  // 1024px or rotates.
   const [isLg, setIsLg] = useState(() => window.matchMedia('(min-width: 1024px)').matches)
-  const [vh, setVh] = useState(() => window.innerHeight)
   useEffect(() => {
     const mq = window.matchMedia('(min-width: 1024px)')
-    const onChange = () => { setIsLg(mq.matches); setVh(window.innerHeight) }
+    const onChange = () => setIsLg(mq.matches)
     mq.addEventListener('change', onChange)
-    window.addEventListener('resize', onChange, { passive: true })
-    return () => { mq.removeEventListener('change', onChange); window.removeEventListener('resize', onChange) }
+    return () => mq.removeEventListener('change', onChange)
   }, [])
 
   // Scroll exit — scrubbed directly by scroll position (Lenis IS the easing).
   // NOTE: not target-based — a pinned sticky target re-measures to "start start"
   // on every scroll, freezing its progress at 0. The hero always sits at page
   // top, so absolute scrollY over one viewport height is the exact progress.
-  const { scrollY } = useScroll()
-  const eyebrowY = useTransform(scrollY, [0, vh], [0, -50])
-  const headY = useTransform(scrollY, [0, vh], [0, -120])
-  const paraY = useTransform(scrollY, [0, vh], [0, -80])
-  const ctaY = useTransform(scrollY, [0, vh], [0, -36])
-  const textOp = useTransform(scrollY, [0, vh * 0.5], [1, 0])
-  const ctaOp = useTransform(scrollY, [vh * 0.15, vh * 0.6], [1, 0]) // CTAs are actionable — they fade last
-  const imgScale = useTransform(scrollY, [0, vh], [1, 1.07])
-  const imgY = useTransform(scrollY, [0, vh], [0, 32])
-  const scrim = useTransform(scrollY, [0, vh * 0.8], [0, 0.35])
+  //
+  // PINNED HOLD: the section is two viewports tall on desktop and its content is
+  // sticky, so scrolling "holds" the user on the hero — the video expands to
+  // full-bleed and the text clears — before the page releases to the content
+  // below. Progress runs 0→1 over that pinned scroll (the section is NOT the
+  // sticky element here, so target-based progress is stable, unlike the old
+  // self-sticky version).
+  const { scrollYProgress: p } = useScroll({ target: ref, offset: ['start start', 'end end'] })
+  const eyebrowY = useTransform(p, [0, 0.32], [0, -50])
+  const headY = useTransform(p, [0, 0.32], [0, -120])
+  const paraY = useTransform(p, [0, 0.32], [0, -80])
+  const ctaY = useTransform(p, [0, 0.32], [0, -36])
+  const textOp = useTransform(p, [0.08, 0.3], [1, 0])
+  const ctaOp = useTransform(p, [0.05, 0.26], [1, 0]) // CTAs are actionable — they fade last
+  const imgScale = useTransform(p, [0, 0.85], [1, 1.07])
+  const imgY = useTransform(p, [0, 0.85], [0, 32])
+  const scrim = useTransform(p, [0.72, 1], [0, 0.35])
+  // Scroll-expand: the video panel grows from its grid column (0.95fr of 2fr =
+  // 47.5vw) to full-bleed (100vw) across the pinned hold, so the whole frame is
+  // revealed while the text clears. Interpolate a plain number (Framer handles
+  // that cleanly) and stitch the `vw` unit on with a template — the browser
+  // resolves vw, so it never depends on a JS width reading. Desktop only.
+  const panelVW = useTransform(p, [0.12, 0.72], [47.5, 100])
+  const panelW = useMotionTemplate`${panelVW}vw`
   // Once the pinned hero has faded under the curtain, drop its CTAs out of the tab
   // order (opacity:0 alone leaves them keyboard-focusable behind the covering page).
   const ctaVis = useTransform(ctaOp, (o) => (o < 0.05 ? 'hidden' : 'visible'))
@@ -138,7 +150,10 @@ function Hero() {
   const slabDelay = isLg ? 0.5 : 0.35
 
   return (
-    <section ref={ref} className={cn('bg-paper', !reduce && 'lg:sticky lg:top-0')}>
+    <section ref={ref} className={cn('bg-paper', !reduce && 'lg:relative lg:h-[200vh]')}>
+      {/* Sticky inner wrapper pins the hero for the section's extra height, so the
+          scroll "holds" on the video while it expands, then releases. */}
+      <div className={cn(!reduce && 'lg:sticky lg:top-0 lg:h-screen lg:overflow-hidden')}>
       <div className="grid lg:grid-cols-[1.05fr_0.95fr] lg:min-h-[100svh]">
         <div className="edge lg:!pr-12 flex flex-col justify-center lg:justify-end pt-28 md:pt-32 pb-12 md:pb-14 lg:pb-20">
           {/* Eyebrow — the rule draws in, the label rises out of a mask */}
@@ -188,8 +203,16 @@ function Hero() {
           </motion.div>
         </div>
 
-        {/* ===== Image panel — red slab sweep unveils the photo ===== */}
-        <div className="relative min-h-[60vh] lg:min-h-full overflow-hidden">
+        {/* ===== Image panel — red slab sweep unveils the photo; expands full-bleed on scroll ===== */}
+        <motion.div
+          style={exit ? { width: panelW } : undefined}
+          className={cn(
+            'relative min-h-[60vh] overflow-hidden bg-night',
+            // On scroll-expand the panel is absolutely anchored to the hero's right
+            // edge so its width can grow leftward without reflowing the text column.
+            reduce ? 'lg:min-h-full' : 'lg:absolute lg:top-0 lg:right-0 lg:h-full lg:min-h-0'
+          )}
+        >
           <motion.div className="absolute inset-0" style={exit ? { scale: imgScale, y: imgY, willChange: 'transform' } : undefined}>
             <motion.div
               className="absolute inset-0"
@@ -202,11 +225,13 @@ function Hero() {
                 scale: { delay: slabDelay + 0.45, duration: 1.5, ease: EASE },
               }}
             >
+              {/* No poster: a still frame here mismatched the video and flashed for a
+                  beat before playback. A dark background blends with the hero until
+                  the video paints. */}
               <video
                 ref={videoRef}
-                className="absolute inset-0 h-full w-full object-cover"
+                className="absolute inset-0 h-full w-full object-cover bg-night"
                 src="/videos/industry-4-0.mp4"
-                poster="/images/studio-3.jpg"
                 autoPlay
                 muted
                 loop
@@ -262,7 +287,8 @@ function Hero() {
               transition={{ delay: slabDelay, duration: 0.9, ease: SNAP }}
             />
           )}
-        </div>
+        </motion.div>
+      </div>
       </div>
     </section>
   )
